@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+title: "GuardrAIl companion artifacts: keyless entry TARA evaluation dataset, prompts, and results"
+message: "If you use this dataset, please cite the paper below."
+type: dataset
+authors:
+  - family-names: Simić
+    given-names: Anja
+    affiliation: "University of Novi Sad, Faculty of Technical Sciences"
+  - family-names: Pavković
+    given-names: Bogdan
+    affiliation: "University of Novi Sad, Faculty of Technical Sciences"
+  - family-names: Milošević
+    given-names: Jelena
+    affiliation: "FHNW University of Applied Sciences and Arts Northwestern Switzerland, School for Computer Science, Institute for Data Science"
+preferred-citation:
+  type: article
+  title: "GuardrAIl: A Neuro-Symbolic Framework for Automotive TARA Automation and ISO/SAE 21434 Compliance"
+  authors:
+    - family-names: Simić
+      given-names: Anja
+    - family-names: Pavković
+      given-names: Bogdan
+    - family-names: Milošević
+      given-names: Jelena
+  journal: "Information and Software Technology"
+  year: 2026
+license: [Apache-2.0, CC-BY-4.0]
+repository-code: "https://github.com/anja-eng/GuardrAIl-results"
+keywords:
+  - TARA
+  - threat analysis and risk assessment
+  - large language models
+  - multi-agent systems
+  - neuro-symbolic AI
+  - automotive cybersecurity
+  - ISO/SAE 21434
