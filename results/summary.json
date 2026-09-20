@@ -1,0 +1,226 @@
+{
+  "c_0": {
+    "n_runs": 5,
+    "threat_count": {
+      "mean": 15.8,
+      "std": 0.8366600265340756,
+      "n_available": 5
+    },
+    "atm_recall": {
+      "mean": 0.225,
+      "std": 0.03423265984407288,
+      "n_available": 5
+    },
+    "atm_hallucination_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "structural_coverage": {
+      "mean": 0.41428571428571426,
+      "std": 0.046413306403852196,
+      "n_available": 5
+    },
+    "stride_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "mean_risk_value": {
+      "mean": 3.6031372549019607,
+      "std": 0.21719907304543332,
+      "n_available": 5
+    },
+    "pct_high_critical": {
+      "mean": 0.5294117647058824,
+      "std": 0.08266764827383498,
+      "n_available": 5
+    },
+    "ears_conformance": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_distribution_total": {
+      "Reduce": 48,
+      "Share": 1,
+      "Retain": 30
+    }
+  },
+  "c_1": {
+    "n_runs": 5,
+    "threat_count": {
+      "mean": 47.4,
+      "std": 7.334848328356899,
+      "n_available": 5
+    },
+    "atm_recall": {
+      "mean": 0.4125,
+      "std": 0.10458250331675945,
+      "n_available": 5
+    },
+    "atm_hallucination_rate": {
+      "mean": 0.0035714285714285713,
+      "std": 0.007985957062499249,
+      "n_available": 5
+    },
+    "structural_coverage": {
+      "mean": 0.4666666666666666,
+      "std": 0.021295885499997995,
+      "n_available": 5
+    },
+    "stride_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "mean_risk_value": {
+      "mean": 3.284888084888085,
+      "std": 0.11710782943143665,
+      "n_available": 5
+    },
+    "pct_high_critical": {
+      "mean": 0.39196681696681696,
+      "std": 0.04175567708826574,
+      "n_available": 5
+    },
+    "ears_conformance": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_distribution_total": {
+      "Reduce": 233,
+      "Retain": 4
+    }
+  },
+  "c_2": {
+    "n_runs": 5,
+    "threat_count": {
+      "mean": 84.6,
+      "std": 22.187834504520715,
+      "n_available": 5
+    },
+    "atm_recall": {
+      "mean": 0.775,
+      "std": 0.09478594305064438,
+      "n_available": 5
+    },
+    "atm_hallucination_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "structural_coverage": {
+      "mean": 0.9952380952380953,
+      "std": 0.01064794274999901,
+      "n_available": 5
+    },
+    "stride_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "mean_risk_value": {
+      "mean": 3.3681801047456505,
+      "std": 0.06914559914724508,
+      "n_available": 5
+    },
+    "pct_high_critical": {
+      "mean": 0.4362610592502671,
+      "std": 0.06751663458118352,
+      "n_available": 5
+    },
+    "ears_conformance": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_distribution_total": {
+      "Reduce": 413,
+      "Retain": 10
+    }
+  },
+  "c_4": {
+    "n_runs": 5,
+    "threat_count": {
+      "mean": 79.2,
+      "std": 16.037456157383563,
+      "n_available": 5
+    },
+    "atm_recall": {
+      "mean": 0.9125,
+      "std": 0.03423265984407288,
+      "n_available": 5
+    },
+    "atm_hallucination_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "structural_coverage": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "stride_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_validity": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "mean_risk_value": {
+      "mean": 3.811486302303394,
+      "std": 0.08843707610409027,
+      "n_available": 5
+    },
+    "pct_high_critical": {
+      "mean": 0.6844725364590432,
+      "std": 0.04522322771132064,
+      "n_available": 5
+    },
+    "ears_conformance": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "goal_count": {
+      "mean": 75.4,
+      "std": 15.820872289478858,
+      "n_available": 5
+    },
+    "goal_ears_conformance": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "goal_traceability_completeness": {
+      "mean": 1.0,
+      "std": 0.0,
+      "n_available": 5
+    },
+    "treatment_distribution_total": {
+      "Reduce": 377,
+      "Retain": 19
+    }
+  }
+}

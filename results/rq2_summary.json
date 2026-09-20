@@ -1,0 +1,37 @@
+{
+  "grounded": {
+    "distribution": {
+      "mean": 3.541176470588235,
+      "std": 1.1592110524020707,
+      "pct_high_critical": 0.5372549019607843,
+      "n": 255
+    },
+    "per_threat_variance": {
+      "mean_per_threat_std": 0.22025951278598577,
+      "n_threats_scored": 51,
+      "n_threats_incomplete": 0,
+      "incomplete_threat_ids": []
+    }
+  },
+  "ungrounded": {
+    "distribution": {
+      "mean": 3.376470588235294,
+      "std": 0.6926464810807816,
+      "pct_high_critical": 0.48627450980392156,
+      "n": 255
+    },
+    "per_threat_variance": {
+      "mean_per_threat_std": 0.3137131847668361,
+      "n_threats_scored": 51,
+      "n_threats_incomplete": 0,
+      "incomplete_threat_ids": []
+    }
+  },
+  "alignment": {
+    "same_identity_set": true,
+    "same_identity_order": true,
+    "grounded_only": [],
+    "ungrounded_only": []
+  },
+  "mean_shift": -0.16470588235294104
+}

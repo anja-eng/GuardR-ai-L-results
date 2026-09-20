@@ -1,0 +1,1758 @@
+{
+  "components": {
+    "Key Fob": [
+      {
+        "threat_category": "Spoofing",
+        "threat_description": "An attacker captures and replays valid RF response frames from a legitimate key fob to the RF transceiver to gain unauthorized vehicle entry or engine start, exploiting lack of strong distance bounding or replay protection.",
+        "linked_assets": [
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 0,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0003",
+          "technique_name": "Manipulate Communications",
+          "real_world_poc_example": "ATM-P0038: Drive It Like You Hacked It",
+          "mapping_rationale": "Replay attacks on RF frames to gain unauthorized access directly manipulate wireless communications, matching the Manipulate Communications technique."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Sensitive cryptographic keys stored on the key fob could be extracted via side-channel or physical attacks, allowing cloning and unauthorized vehicle access.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 1,
+          "tactic": "privilege_escalation",
+          "technique_id": "ATM-T0028",
+          "technique_name": "Hardware Fault Injection",
+          "real_world_poc_example": "ATM-P0088: There Will Be Glitches Extracting and Analyzing Automotive Firmware Efficiently",
+          "mapping_rationale": "Extracting cryptographic keys from a key fob via side-channel or physical attacks is best represented by Hardware Fault Injection, which includes such extraction techniques."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker jams or floods the RF channel with noise or spoofed messages to prevent legitimate communication between the key fob and vehicle RF transceiver, blocking vehicle access or engine start.",
+        "linked_assets": [
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "ANT_RF_1",
+            "asset_name": "Vehicle RF Antenna",
+            "asset_type": "functional"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 2,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "Jamming or flooding the RF channel to block communication is a textbook example of the Jamming or Denial of Service technique."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "An attacker with physical possession of the key fob gains access to its debug interface such as JTAG or a serial port. By connecting specialized hardware to this interface, the attacker extracts sensitive cryptographic key material stored in the device’s memory. This stolen key material enables cloning the key fob and unauthorized unlocking and starting of the vehicle.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "tactic": "Exfiltration",
+          "technique_id": "ATM-T0073",
+          "technique_name": "Physical Access",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The scenario specifically involves physical access to the key fob's debug interface (e.g., JTAG) to extract cryptographic keys, which directly matches the Physical Access technique description."
+        }
+      }
+    ],
+    "LF Antenna (Door Handle)": [
+      {
+        "threat_category": "Spoofing",
+        "threat_description": "An attacker sends fake LF signals mimicking a legitimate key fob proximity to trigger false wake events in the BCM, causing the vehicle to initiate authentication challenges unnecessarily.",
+        "linked_assets": [
+          {
+            "asset_id": "C1",
+            "asset_name": "LF Proximity Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF1",
+            "asset_name": "ANT_1 -> EXT_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 3,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0003",
+          "technique_name": "Manipulate Communications",
+          "real_world_poc_example": "ATM-P0038: Drive It Like You Hacked It",
+          "mapping_rationale": "Sending fake LF signals to trigger false wake events manipulates the communication environment, aligning with Manipulate Communications."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker jams or interferes with the LF antenna signals to block proximity detection, preventing the vehicle from waking and authenticating the key fob by disrupting the LF proximity trigger signal (DF1).",
+        "linked_assets": [
+          {
+            "asset_id": "C1",
+            "asset_name": "LF Proximity Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF1",
+            "asset_name": "ANT_1 -> EXT_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 4,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "Jamming or interfering with LF antenna signals to block proximity detection is best mapped to Jamming or Denial of Service."
+        }
+      }
+    ],
+    "Vehicle RF Antenna": [
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Physical tampering with the vehicle RF antenna or analog RF feed could allow an attacker to eavesdrop on RF challenge/response frames, leaking cryptographic information.",
+        "linked_assets": [
+          {
+            "asset_id": "C10",
+            "asset_name": "RF Transceiver -> Vehicle Antenna RF Link",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF15",
+            "asset_name": "RF_1 -> ANT_RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF16",
+            "asset_name": "ANT_RF_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 5,
+          "tactic": "credential_access",
+          "technique_id": "ATM-T0038",
+          "technique_name": "Network Sniffing",
+          "real_world_poc_example": "ATM-P0016: Losing the Car Keys: Wireless PHY-Layer Insecurity in EV Charging",
+          "mapping_rationale": "Eavesdropping on RF challenge/response frames to leak cryptographic info is a direct example of Network Sniffing."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker tampers with the vehicle RF antenna or introduces a malicious antenna to perform relay attacks, extending the range of the key fob signals to unlock or start the vehicle remotely.",
+        "linked_assets": [
+          {
+            "asset_id": "C10",
+            "asset_name": "RF Transceiver -> Vehicle Antenna RF Link",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF15",
+            "asset_name": "RF_1 -> ANT_RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF16",
+            "asset_name": "ANT_RF_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 6,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0007",
+          "technique_name": "Relay Communications",
+          "real_world_poc_example": "ATM-P0082: NFC Relay Attack on Tesla Model Y",
+          "mapping_rationale": "Relay attacks using malicious antennas to extend key fob range are specifically covered by the Relay Communications technique."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "By physically damaging or disabling the vehicle RF antenna, an attacker can prevent reception or transmission of RF signals, blocking key fob authentication and vehicle access (affecting DF15 and DF16).",
+        "linked_assets": [
+          {
+            "asset_id": "C10",
+            "asset_name": "RF Transceiver -> Vehicle Antenna RF Link",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF15",
+            "asset_name": "RF_1 -> ANT_RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF16",
+            "asset_name": "ANT_RF_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 7,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "Physically damaging or disabling the RF antenna to block signals is a physical form of Jamming or Denial of Service."
+        }
+      }
+    ],
+    "RF Transceiver (Vehicle)": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Compromise or malicious modification of the RF transceiver firmware could allow an attacker to forge, modify, or drop RF response messages forwarded to the BCM, bypassing authentication or causing denial of service. This includes manipulation of the control interface from BCM to RF transceiver (C9 / DF14) and abuse of RF receive metadata (C11 / DF6).",
+        "linked_assets": [
+          {
+            "asset_id": "I7",
+            "asset_name": "RF Transceiver Firmware",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I5",
+            "asset_name": "Auth Data (RF response forwarded)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C11",
+            "asset_name": "RF receive metadata (RSSI/timestamp)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF6",
+            "asset_name": "RF_1 -> BCM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 8,
+          "tactic": "affect_vehicle_function",
+          "technique_id": "ATM-T0070",
+          "technique_name": "Modify Bus Message",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Malicious modification of RF transceiver firmware to forge, modify, or drop RF messages is best represented by Modify Bus Message, as it involves altering messages in transit."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "If the RF transceiver firmware is compromised, it could leak demodulated RF frames, receive metadata (RSSI, timestamp), and internal forwarding information to unauthorized parties, exposing cryptographic data or vehicle state (affects C11 and DF6).",
+        "linked_assets": [
+          {
+            "asset_id": "I7",
+            "asset_name": "RF Transceiver Firmware",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I5",
+            "asset_name": "Auth Data (RF response forwarded)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C11",
+            "asset_name": "RF receive metadata (RSSI/timestamp)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF6",
+            "asset_name": "RF_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 9,
+          "tactic": "credential_access",
+          "technique_id": "ATM-T0038",
+          "technique_name": "Network Sniffing",
+          "real_world_poc_example": "ATM-P0016: Losing the Car Keys: Wireless PHY-Layer Insecurity in EV Charging",
+          "mapping_rationale": "A compromised RF transceiver leaking demodulated RF frames and metadata is a form of Network Sniffing, as it involves unauthorized collection of communication data."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker with access to the RF transceiver could block or drop challenge or response messages, or manipulate the BCM->RF transceiver control interface (C9/DF14), preventing successful authentication and vehicle operation.",
+        "linked_assets": [
+          {
+            "asset_id": "I5",
+            "asset_name": "Auth Data (RF response forwarded)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF6",
+            "asset_name": "RF_1 -> BCM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 0,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "The threat involves blocking or dropping RF challenge/response messages and interfering with the BCM->RF transceiver interface, which aligns directly with jamming or denial of service attacks targeting communication channels."
+        }
+      },
+      {
+        "threat_category": "Spoofing",
+        "threat_description": "An attacker impersonates the RF transceiver by injecting forged Auth Data or control responses to the BCM, causing it to accept unauthorized authentication responses or manipulate challenge transmissions (targeting DF6 and C9).",
+        "linked_assets": [
+          {
+            "asset_id": "I5",
+            "asset_name": "Auth Data (RF response forwarded)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "BCM_1",
+            "asset_name": "Body Control Module (BCM)",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "DF6",
+            "asset_name": "RF_1 -> BCM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 1,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0003",
+          "technique_name": "Manipulate Communications",
+          "real_world_poc_example": "ATM-P0038: Drive It Like You Hacked It",
+          "mapping_rationale": "Impersonating the RF transceiver by injecting forged authentication data or control responses is a direct example of manipulating communications between ECUs."
+        }
+      }
+    ],
+    "Body Control Module (BCM)": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker modifies the BCM firmware or configuration to bypass authentication logic, accept unauthorized tokens, or send unlock/start commands without verification. This includes unauthorized modification or misuse of the BCM -> RF Transceiver Control Interface (C9 / DF14) and restricted API calls to the HSM (DF7).",
+        "linked_assets": [
+          {
+            "asset_id": "I3",
+            "asset_name": "Firmware in BCM",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I9",
+            "asset_name": "BCM Configuration and Access Policies",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "F1",
+            "asset_name": "Door Lock/Unlock Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "F2",
+            "asset_name": "Engine Start Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 2,
+          "tactic": "persistence",
+          "technique_id": "ATM-T0022",
+          "technique_name": "Modify OS Kernel, Boot Partition, or System Partition",
+          "real_world_poc_example": "ATM-P0083: Comprehensive Experimental Analyses of Automotive Attack Surfaces",
+          "mapping_rationale": "Modifying BCM firmware or configuration to bypass authentication logic is best represented by unauthorized modification of system software, which this technique covers."
+        }
+      },
+      {
+        "threat_category": "Repudiation",
+        "threat_description": "BCM logs or events related to authentication or commands may be insufficiently protected, allowing an attacker to deny having sent unlock or start commands.",
+        "linked_assets": [
+          {
+            "asset_id": "I3",
+            "asset_name": "Firmware in BCM",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 3,
+          "tactic": "defense_evasion",
+          "technique_id": "ATM-T0031",
+          "technique_name": "Bypass Code Integrity Protections",
+          "real_world_poc_example": "ATM-P0006: Experimental Security Assessment of BMW Cars: A Summary Report",
+          "mapping_rationale": "Allowing attackers to manipulate or erase logs/events to deny actions is enabled by bypassing code integrity protections, allowing unauthorized code or log tampering."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Sensitive data such as authentication tokens, configuration, challenge/response nonces (I2), and message annotations (I6) processed or stored in the BCM could be leaked via debug interfaces or compromised firmware. This includes data involved in restricted API calls to the HSM (DF7) and tokens returned from the HSM (DF8).",
+        "linked_assets": [
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I9",
+            "asset_name": "BCM Configuration and Access Policies",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I5",
+            "asset_name": "Auth Data (RF response forwarded)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I2",
+            "asset_name": "Challenge-Response Nonces",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I6",
+            "asset_name": "Message Annotations (diagram labels)",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF8",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 4,
+          "tactic": "collection",
+          "technique_id": "ATM-T0059",
+          "technique_name": "Data from Local System",
+          "real_world_poc_example": "ATM-P0175: Driving Down the Rabbit Hole",
+          "mapping_rationale": "Leaking sensitive data from the BCM via debug interfaces or compromised firmware matches the collection of data from the local system."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker could flood the BCM with spurious LF wake events (targeting DF17), RF messages, or interfere with the BCM -> RF transceiver control interface (C9/DF14), causing resource exhaustion, preventing legitimate authentication flows, or blocking command transmissions (DF4, DF5, DF11, DF13).",
+        "linked_assets": [
+          {
+            "asset_id": "C1",
+            "asset_name": "LF Proximity Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF17",
+            "asset_name": "LF_RX_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 5,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "Flooding the BCM with spurious events or interfering with control interfaces to exhaust resources or block commands is a classic denial of service scenario."
+        }
+      },
+      {
+        "threat_category": "Elevation of Privilege",
+        "threat_description": "An attacker with partial access to the BCM could exploit vulnerabilities in its firmware or API, including the restricted HSM API calls (DF7) and RF transceiver control interface (C9/DF14), to gain higher privileges, enabling unauthorized key usage or token generation.",
+        "linked_assets": [
+          {
+            "asset_id": "I3",
+            "asset_name": "Firmware in BCM",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I9",
+            "asset_name": "BCM Configuration and Access Policies",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 6,
+          "tactic": "privilege_escalation",
+          "technique_id": "ATM-T0024",
+          "technique_name": "Abuse Elevation Control Mechanism",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Exploiting vulnerabilities in firmware or APIs to gain higher privileges and unauthorized key usage is best mapped to abusing elevation control mechanisms."
+        }
+      }
+    ],
+    "Door ECU": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker modifies the door ECU firmware or message handling to unlock doors without valid authorization tokens or ignore lock commands. This includes manipulation or spoofing of lock/unlock CAN messages from BCM (DF4 and DF11) and unauthorized control of actuator signals (DF9).",
+        "linked_assets": [
+          {
+            "asset_id": "F1",
+            "asset_name": "Door Lock/Unlock Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C6",
+            "asset_name": "Door ECU -> Actuator Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 7,
+          "tactic": "affect_vehicle_function",
+          "technique_id": "ATM-T0070",
+          "technique_name": "Modify Bus Message",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Modifying door ECU firmware or message handling to unlock doors or ignore commands involves altering CAN messages, which is covered by modifying bus messages."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Sensitive door ECU state or actuator control signals could be observed or leaked, revealing vehicle access status or command data (affecting DF4, DF9, and DF11).",
+        "linked_assets": [
+          {
+            "asset_id": "F1",
+            "asset_name": "Door Lock/Unlock Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "C6",
+            "asset_name": "Door ECU -> Actuator Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 8,
+          "tactic": "collection",
+          "technique_id": "ATM-T0059",
+          "technique_name": "Data from Local System",
+          "real_world_poc_example": "ATM-P0175: Driving Down the Rabbit Hole",
+          "mapping_rationale": "Observing or leaking door ECU state or actuator signals is an example of collecting data from the local system."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker jams or blocks CAN messages from BCM to the door ECU (DF4, DF11), or blocks actuator signals (DF9), preventing lock/unlock commands from being received and causing loss of vehicle access control.",
+        "linked_assets": [
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 9,
+          "tactic": "affect_vehicle_function",
+          "technique_id": "ATM-T0072",
+          "technique_name": "Denial of Service on Vehicle Function",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Jamming or blocking CAN messages or actuator signals to prevent lock/unlock commands is a denial of service attack on vehicle function."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "After gaining unauthorized local access to the Door ECU, an attacker injects malicious firmware that grants direct control over door locking mechanisms. This enables the attacker to actuate door lock/unlock functions independently of valid BCM commands, bypassing authentication checks and remotely unlocking vehicle doors without triggering security alerts.",
+        "linked_assets": [
+          {
+            "asset_id": "F1",
+            "asset_name": "Door Lock/Unlock Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "C6",
+            "asset_name": "Door ECU -> Actuator Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0069",
+          "technique_name": "Local Function",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The threat involves an attacker gaining unauthorized local ECU access and injecting malicious firmware to directly control door lock functions, which aligns precisely with the Local Function technique describing ECU-level function control after code execution."
+        }
+      }
+    ],
+    "Start Authorization ECU": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Compromise of the Start Authorization ECU firmware or token verification logic could allow unauthorized engine start without valid tokens from the BCM/HSM. This includes manipulation or spoofing of start authorization CAN messages from BCM (DF5, DF13) and start enable commands to the Engine ECU (DF10).",
+        "linked_assets": [
+          {
+            "asset_id": "F2",
+            "asset_name": "Engine Start Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF10",
+            "asset_name": "ECU_START -> ENGINE_ECU",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 0,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0071",
+          "technique_name": "Unintended Vehicle Network Message",
+          "real_world_poc_example": "ATM-P0006: Experimental Security Assessment of BMW Cars: A Summary Report",
+          "mapping_rationale": "This threat involves manipulation or spoofing of start authorization CAN messages to enable unauthorized engine start, which best matches the injection of unintended vehicle network messages."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Start authorization tokens or engine start commands could be leaked on the CAN bus or via debug interfaces, revealing vehicle start authorization status (affecting DF5, DF10, and DF13).",
+        "linked_assets": [
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF10",
+            "asset_name": "ECU_START -> ENGINE_ECU",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 1,
+          "tactic": "Credential Access, Collection",
+          "technique_id": "ATM-T0038",
+          "technique_name": "Network Sniffing",
+          "real_world_poc_example": "ATM-P0016: Losing the Car Keys: Wireless PHY-Layer Insecurity in EV Charging",
+          "mapping_rationale": "Leaking tokens or commands on the CAN bus or debug interfaces is best represented by network sniffing, which covers interception of sensitive data in transit."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker may block or drop start authorization tokens or start enable commands on the CAN bus (DF5, DF10, DF13), preventing the engine ECU from receiving start commands and disabling vehicle start.",
+        "linked_assets": [
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF10",
+            "asset_name": "ECU_START -> ENGINE_ECU",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 2,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0068",
+          "technique_name": "CAN Bus Denial of Service",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Blocking or dropping start authorization tokens or commands on the CAN bus to prevent engine start is a direct example of CAN Bus Denial of Service."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker with access to the vehicle's diagnostic interface abuses standard diagnostic protocols to send unauthorized write memory commands to the Start Authorization ECU. By exploiting diagnostic services such as UDS Write Memory By Address, the attacker modifies the ECU firmware to bypass or disable the token verification logic. This allows the attacker to generate or accept forged start authorization tokens, enabling engine start commands without valid authorization from the BCM/HSM. The compromised ECU then sends unauthorized engine start commands over the Powertrain Start Interface, effectively allowing unauthorized vehicle operation.",
+        "linked_assets": [
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "F2",
+            "asset_name": "Engine Start Command",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          }
+        ],
+        "atm_mapping": {
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0067",
+          "technique_name": "Abuse Standard Diagnostic Protocol for Affecting Vehicle Function",
+          "real_world_poc_example": "ATM-P0006: Experimental Security Assessment of BMW Cars: A Summary Report",
+          "mapping_rationale": "This technique specifically covers abuse of standard diagnostic protocols like UDS Write Memory By Address to modify ECU firmware and affect vehicle functions, exactly matching the scenario of modifying the Start Authorization ECU to bypass token verification."
+        }
+      }
+    ],
+    "CAN Bus": [
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "CAN bus messages are broadcast and can be sniffed by attackers with physical access, exposing authentication tokens, lock/unlock commands, and start authorization messages (including DF4, DF5, DF11, DF13).",
+        "linked_assets": [
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C7",
+            "asset_name": "In-Vehicle CAN (broadcast medium)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 3,
+          "tactic": "Credential Access, Collection",
+          "technique_id": "ATM-T0038",
+          "technique_name": "Network Sniffing",
+          "real_world_poc_example": "ATM-P0038: Drive It Like You Hacked It",
+          "mapping_rationale": "Sniffing broadcast CAN messages to expose tokens and commands is best mapped to network sniffing."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker with physical access to the CAN bus can inject or modify lock/unlock or start authorization messages, potentially unlocking doors or enabling engine start without proper authentication (targeting DF4, DF5, DF11, DF13).",
+        "linked_assets": [
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C7",
+            "asset_name": "In-Vehicle CAN (broadcast medium)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 4,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0071",
+          "technique_name": "Unintended Vehicle Network Message",
+          "real_world_poc_example": "ATM-P0083: Comprehensive Experimental Analyses of Automotive Attack Surfaces",
+          "mapping_rationale": "Injecting or modifying lock/unlock or start authorization messages on the CAN bus is a classic case of sending unintended vehicle network messages."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "Flooding or jamming the CAN bus can prevent critical lock/unlock or start authorization messages from being delivered, disabling vehicle operation (affects DF4, DF5, DF11, DF13).",
+        "linked_assets": [
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF4",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF5",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF11",
+            "asset_name": "BCM_1 -> ECU_DOOR",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF13",
+            "asset_name": "BCM_1 -> ECU_START",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 5,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0068",
+          "technique_name": "CAN Bus Denial of Service",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Flooding or jamming the CAN bus to prevent message delivery and disable vehicle operation is directly mapped to CAN Bus Denial of Service."
+        }
+      }
+    ],
+    "HSM / Secure Enclave": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker tampers with the HSM firmware or bypasses secure boot and measurement protections to extract cryptographic keys, forge authorization tokens, or manipulate cryptographic verification results. This includes compromising the HSM attestation data (DF18) and API interactions (DF7, DF8).",
+        "linked_assets": [
+          {
+            "asset_id": "I8",
+            "asset_name": "HSM Firmware / Secure Boot Measurements",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF8",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF18",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 6,
+          "tactic": "Persistence, Privilege Escalation, Defense Evasion, Lateral Movement",
+          "technique_id": "ATM-T0075",
+          "technique_name": "Compromise Cryptographic Security",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Tampering with HSM firmware or bypassing secure boot to extract keys or forge tokens is best represented by compromising cryptographic security."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "If the HSM internal bus or API is compromised, cryptographic keys or sensitive token data could be leaked to unauthorized entities, including exposure of cryptographic key store contents (DF12).",
+        "linked_assets": [
+          {
+            "asset_id": "C8",
+            "asset_name": "HSM Internal Bus / Key Access",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 7,
+          "tactic": "Credential Access",
+          "technique_id": "ATM-T0039",
+          "technique_name": "ECU Credential Dumping",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Leaking cryptographic keys or sensitive token data from the HSM or its API is best mapped to ECU Credential Dumping."
+        }
+      },
+      {
+        "threat_category": "Repudiation",
+        "threat_description": "Without secure logging and attestation, the HSM could deny generating specific authorization tokens or signatures, complicating incident response. This includes possible tampering with attestation or measurement data (DF18).",
+        "linked_assets": [
+          {
+            "asset_id": "I10",
+            "asset_name": "HSM Attestation / Measurement Data",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF18",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 8,
+          "tactic": "Persistence, Privilege Escalation, Defense Evasion, Lateral Movement",
+          "technique_id": "ATM-T0075",
+          "technique_name": "Compromise Cryptographic Security",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Tampering with attestation or measurement data to enable repudiation is a form of compromising cryptographic security."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker disrupts the HSM API or processing to prevent cryptographic verification or token generation, disabling authentication and vehicle operation (affects DF7 and DF8).",
+        "linked_assets": [
+          {
+            "asset_id": "C4",
+            "asset_name": "Restricted HSM API",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF8",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 9,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0072",
+          "technique_name": "Denial of Service on Vehicle Function",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Disrupting the HSM API or processing to prevent cryptographic verification or token generation, thereby disabling authentication and vehicle operation, is best mapped to Denial of Service on Vehicle Function."
+        }
+      },
+      {
+        "threat_category": "Elevation of Privilege",
+        "threat_description": "An attacker exploits vulnerabilities in the HSM or its API to gain unauthorized access to cryptographic keys or generate tokens without BCM authorization, including misuse of the restricted HSM API (DF7) and internal key accesses (DF12).",
+        "linked_assets": [
+          {
+            "asset_id": "C4",
+            "asset_name": "Restricted HSM API",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 0,
+          "tactic": "Privilege Escalation",
+          "technique_id": "ATM-T0027",
+          "technique_name": "Exploit Isolated Execution Environment Vulnerability",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The threat describes exploiting vulnerabilities in the HSM or its API to gain unauthorized access to cryptographic keys, which is best matched by exploiting vulnerabilities in an isolated execution environment such as an HSM."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker compromises the HSM firmware to insert malicious code that uses a custom or proprietary cryptographic protocol lacking industry-standard security properties to encrypt communication between the HSM and BCM components. This weak encryption masks command and control messages, preventing detection by standard monitoring tools. However, because secret keys are hardcoded within the malware and not dynamically protected, the attacker can reverse engineer the malware to recover the keys, ultimately enabling decryption and manipulation of authorization tokens and cryptographic verification results.",
+        "linked_assets": [
+          {
+            "asset_id": "I8",
+            "asset_name": "HSM Firmware / Secure Boot Measurements",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF7",
+            "asset_name": "BCM_1 -> HSM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF8",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "tactic": "Command and Control",
+          "technique_id": "ATM-T0066",
+          "technique_name": "Standard Cryptographic Protocol",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The threat involves use of a custom cryptographic protocol with hardcoded keys vulnerable to reverse engineering, which aligns specifically with risks described in Standard Cryptographic Protocol where malware uses known or custom algorithms but fails to protect keys properly."
+        }
+      }
+    ],
+    "Crypto Engine": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Compromise of the crypto engine inside the HSM could allow forging verification results or authorization tokens, bypassing authentication.",
+        "linked_assets": [
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 1,
+          "tactic": "Persistence",
+          "technique_id": "ATM-T0075",
+          "technique_name": "Compromise Cryptographic Security",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Forging verification results or tokens by compromising the crypto engine directly aligns with compromising cryptographic security."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Exfiltration of cryptographic keys or sensitive verification data via crypto engine compromise could undermine entire system security.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 2,
+          "tactic": "Credential Access",
+          "technique_id": "ATM-T0027",
+          "technique_name": "Exploit Isolated Execution Environment Vulnerability",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Exfiltration of cryptographic keys via crypto engine compromise is best mapped to exploiting vulnerabilities in an isolated execution environment."
+        }
+      },
+      {
+        "threat_category": "Elevation of Privilege",
+        "threat_description": "An attacker with initial access to the vehicle network exploits the standard diagnostic protocol used by the Crypto Engine to execute unauthorized memory write commands. By abusing the protocol's 'write memory by address' functionality, the attacker injects malicious code into the Crypto Engine firmware, enabling lateral movement and persistent control over cryptographic operations. This manipulation allows forging of verification results and authorization tokens, compromising the integrity of Start Authorization Tokens and cryptographic key material.",
+        "linked_assets": [
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "tactic": "Lateral Movement",
+          "technique_id": "ATM-T0050",
+          "technique_name": "Abuse Standard Diagnostic Protocol for Lateral Movement",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The threat specifically involves exploiting the 'write memory by address' functionality of a standard diagnostic protocol to inject malicious code into the Crypto Engine firmware and achieve lateral movement and persistent control, which aligns precisely with abusing diagnostic protocols for lateral movement."
+        }
+      }
+    ],
+    "Cryptographic Key Store": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Manipulation or extraction of cryptographic key material stored in the key store could allow attackers to impersonate key fobs or generate valid tokens.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 3,
+          "tactic": "Credential Access",
+          "technique_id": "ATM-T0027",
+          "technique_name": "Exploit Isolated Execution Environment Vulnerability",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Manipulation or extraction of cryptographic key material from the key store is best represented by exploiting vulnerabilities in an isolated execution environment."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Physical or logical compromise of the key store could leak secret keys, enabling cloning or spoofing attacks.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "DF12",
+            "asset_name": "CRYPTO_ENG_1 -> KEYSTORE_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 4,
+          "tactic": "Credential Access",
+          "technique_id": "ATM-T0028",
+          "technique_name": "Hardware Fault Injection",
+          "real_world_poc_example": "ATM-P0088: There Will Be Glitches Extracting and Analyzing Automotive Firmware Efficiently | https://atm.automotiveisac.com/example/ATM-P0088",
+          "mapping_rationale": "Physical or logical compromise of the key store to leak secret keys is best matched by hardware fault injection, which is a common method for extracting secrets from secure storage."
+        }
+      }
+    ],
+    "Door Lock Actuator": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "An attacker manipulates door lock actuator signals to unlock doors without valid authorization from the ECU (targeting DF9).",
+        "linked_assets": [
+          {
+            "asset_id": "C6",
+            "asset_name": "Door ECU -> Actuator Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 5,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0071",
+          "technique_name": "Unintended Vehicle Network Message",
+          "real_world_poc_example": "ATM-P0006: Experimental Security Assessment of BMW Cars: A Summary Report | https://atm.automotiveisac.com/example/ATM-P0006",
+          "mapping_rationale": "Manipulating door lock actuator signals to unlock doors without authorization is best mapped to injecting unintended vehicle network messages."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "Physical damage or blocking of the door lock actuator could prevent doors from locking or unlocking as commanded (affecting DF9).",
+        "linked_assets": [
+          {
+            "asset_id": "C6",
+            "asset_name": "Door ECU -> Actuator Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF9",
+            "asset_name": "ECU_DOOR -> DOOR_ACT_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 6,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0072",
+          "technique_name": "Denial of Service on Vehicle Function",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "Physically blocking or damaging the actuator to prevent locking/unlocking is a denial of service on vehicle function."
+        }
+      }
+    ],
+    "Engine ECU / Inverter": [
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Modification of engine ECU firmware or start enable logic could allow engine start without valid authorization tokens (targeting DF10).",
+        "linked_assets": [
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF10",
+            "asset_name": "ECU_START -> ENGINE_ECU",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 7,
+          "tactic": "Persistence",
+          "technique_id": "ATM-T0022",
+          "technique_name": "Modify OS Kernel, Boot Partition, or System Partition",
+          "real_world_poc_example": "ATM-P0083: Comprehensive Experimental Analyses of Automotive Attack Surfaces | https://atm.automotiveisac.com/example/ATM-P0083",
+          "mapping_rationale": "Modification of ECU firmware or start logic to bypass authorization is best mapped to modifying the OS or system partition."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "Blocking or jamming the powertrain start interface messages could prevent engine start even with valid authorization (affecting DF10).",
+        "linked_assets": [
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF10",
+            "asset_name": "ECU_START -> ENGINE_ECU",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 8,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S | https://atm.automotiveisac.com/example/ATM-P0141",
+          "mapping_rationale": "Blocking or jamming start interface messages to prevent engine start is a classic denial of service attack."
+        }
+      }
+    ],
+    "LF Receiver / LF Front-End": [
+      {
+        "threat_category": "Spoofing",
+        "threat_description": "An attacker injects false LF wake signals or measurement metadata to the BCM, causing false wake events and unauthorized initiation of challenge flows (targeting DF17).",
+        "linked_assets": [
+          {
+            "asset_id": "C12",
+            "asset_name": "LF Receiver -> BCM Event / Control Link",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF17",
+            "asset_name": "LF_RX_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 9,
+          "tactic": "Affect Vehicle Function",
+          "technique_id": "ATM-T0071",
+          "technique_name": "Unintended Vehicle Network Message",
+          "real_world_poc_example": "ATM-P0006: Experimental Security Assessment of BMW Cars: A Summary Report | https://atm.automotiveisac.com/example/ATM-P0006",
+          "mapping_rationale": "Injecting false LF wake signals or metadata to cause unauthorized wake events is best mapped to sending unintended vehicle network messages."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "An attacker jams or disables the LF receiver electronics, preventing detection of legitimate key fob proximity and blocking vehicle entry/start (affecting DF17).",
+        "linked_assets": [
+          {
+            "asset_id": "C12",
+            "asset_name": "LF Receiver -> BCM Event / Control Link",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF17",
+            "asset_name": "LF_RX_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 0,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "The threat describes jamming or disabling LF receiver electronics to block legitimate signals, which directly aligns with the 'Jamming or Denial of Service' technique."
+        }
+      }
+    ],
+    "GENERIC": [
+      {
+        "threat_category": "Spoofing",
+        "threat_description": "Relay attacks across the Wireless Communication Boundary (ANT_RF_1, RF_1, EXT_1) where an attacker relays signals between the key fob and vehicle to extend operational range and gain unauthorized access. The RF transceiver (RF_1) does not verify freshness beyond forwarding Auth Data, enabling this attack. This misuse affects the integrity and freshness of Challenge-Response Nonces (I2) and message annotations (I6) observed in the protocol messages.",
+        "linked_assets": [
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "ANT_RF_1",
+            "asset_name": "Vehicle RF Antenna",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "RF_1",
+            "asset_name": "RF Transceiver (Vehicle)",
+            "asset_type": "functional"
+          },
+          {
+            "asset_id": "I2",
+            "asset_name": "Challenge-Response Nonces",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I6",
+            "asset_name": "Message Annotations (diagram labels)",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 1,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0007",
+          "technique_name": "Relay Communications",
+          "real_world_poc_example": "ATM-P0082: NFC Relay Attack on Tesla Model Y",
+          "mapping_rationale": "The scenario is a classic relay attack extending key fob range, which is specifically covered by the 'Relay Communications' technique."
+        }
+      },
+      {
+        "threat_category": "Tampering",
+        "threat_description": "Unauthorized firmware modification on vehicle-exposed modules (RF_1 firmware, BCM_1 firmware, HSM_1 firmware) could allow attackers to bypass authentication, forge tokens, or leak sensitive data. In particular, compromised RF transceiver firmware (I7) could alter forwarded Auth Data and manipulate control interface messages (C9 / DF14), and compromised BCM firmware (I3) could disable access controls or modify message annotations (I6).",
+        "linked_assets": [
+          {
+            "asset_id": "I7",
+            "asset_name": "RF Transceiver Firmware",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I3",
+            "asset_name": "Firmware in BCM",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I8",
+            "asset_name": "HSM Firmware / Secure Boot Measurements",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I6",
+            "asset_name": "Message Annotations (diagram labels)",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 2,
+          "tactic": "persistence",
+          "technique_id": "ATM-T0022",
+          "technique_name": "Modify OS Kernel, Boot Partition, or System Partition",
+          "real_world_poc_example": "ATM-P0083: Comprehensive Experimental Analyses of Automotive Attack Surfaces",
+          "mapping_rationale": "Unauthorized firmware modification on ECUs is best matched by 'Modify OS Kernel, Boot Partition, or System Partition', which covers persistent firmware tampering."
+        }
+      },
+      {
+        "threat_category": "Information Disclosure",
+        "threat_description": "Sensitive cryptographic materials and authentication tokens exchanged between BCM, HSM, and ECUs (via restricted HSM API, CAN bus) could be exposed by attackers with physical or logical access to internal communication buses (C4, C7), including metadata such as RF receive details (C11) and control interface data (C9). Lack of confidentiality on CAN bus and insufficient endpoint protections increase exposure.",
+        "linked_assets": [
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I4",
+            "asset_name": "Start Authorization Token",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C4",
+            "asset_name": "Restricted HSM API",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C7",
+            "asset_name": "In-Vehicle CAN (broadcast medium)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C11",
+            "asset_name": "RF receive metadata (RSSI/timestamp)",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I6",
+            "asset_name": "Message Annotations (diagram labels)",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 3,
+          "tactic": "credential_access",
+          "technique_id": "ATM-T0038",
+          "technique_name": "Network Sniffing",
+          "real_world_poc_example": "ATM-P0016: Losing the Car Keys: Wireless PHY-Layer Insecurity in EV Charging",
+          "mapping_rationale": "The threat involves exposure of cryptographic material and tokens via internal buses, which is best matched by 'Network Sniffing' as it covers interception of sensitive data on vehicle networks."
+        }
+      },
+      {
+        "threat_category": "Denial of Service",
+        "threat_description": "Flooding or jamming at various communication boundaries (Wireless Communication Boundary, In-Vehicle Network Boundary) can disrupt challenge/response flows, token distribution, and command messages across components including ANT_1, RF_1, BCM_1, and ECUs, preventing vehicle access or start. This includes blocking or interfering with LF proximity signals (DF1), RF challenges (DF2), RF responses (DF3, DF6), BCM control interface messages (C9 / DF14), and HSM attestation flows (DF18).",
+        "linked_assets": [
+          {
+            "asset_id": "C1",
+            "asset_name": "LF Proximity Signal",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C2",
+            "asset_name": "RF Challenge-Response Messages",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C3",
+            "asset_name": "CAN Lock/Unlock Message",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C5",
+            "asset_name": "Powertrain Start Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "DF1",
+            "asset_name": "ANT_1 -> EXT_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF2",
+            "asset_name": "RF_1 -> EXT_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF3",
+            "asset_name": "EXT_1 -> RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF6",
+            "asset_name": "RF_1 -> BCM_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF14",
+            "asset_name": "BCM_1 -> RF_1",
+            "asset_type": "data_flow"
+          },
+          {
+            "asset_id": "DF18",
+            "asset_name": "HSM_1 -> BCM_1",
+            "asset_type": "data_flow"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 4,
+          "tactic": "manipulate_environment",
+          "technique_id": "ATM-T0002",
+          "technique_name": "Jamming or Denial of Service",
+          "real_world_poc_example": "ATM-P0141: Exploiting Wi-Fi Stack on Tesla Model S",
+          "mapping_rationale": "Flooding or jamming at communication boundaries to disrupt protocol flows is a textbook case of 'Jamming or Denial of Service'."
+        }
+      },
+      {
+        "threat_category": "Elevation of Privilege",
+        "threat_description": "Exploitation of vulnerabilities in restricted APIs (e.g., BCM to HSM API), firmware components, or internal buses could allow attackers to elevate privileges, forge authorization tokens, or access cryptographic keys, undermining the entire PKES system. This includes misuse of the BCM -> RF Transceiver Control Interface (C9) and manipulation of message annotations (I6) that affect protocol controls and authorizations.",
+        "linked_assets": [
+          {
+            "asset_id": "C4",
+            "asset_name": "Restricted HSM API",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I1",
+            "asset_name": "Cryptographic Key Material",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "I9",
+            "asset_name": "BCM Configuration and Access Policies",
+            "asset_type": "information"
+          },
+          {
+            "asset_id": "C9",
+            "asset_name": "BCM -> RF Transceiver Control Interface",
+            "asset_type": "communication"
+          },
+          {
+            "asset_id": "I6",
+            "asset_name": "Message Annotations (diagram labels)",
+            "asset_type": "information"
+          }
+        ],
+        "atm_mapping": {
+          "threat_index": 5,
+          "tactic": "privilege_escalation",
+          "technique_id": "ATM-T0024",
+          "technique_name": "Abuse Elevation Control Mechanism",
+          "real_world_poc_example": "N/A (Theoretical)",
+          "mapping_rationale": "The threat describes exploiting vulnerabilities in APIs or firmware to elevate privileges and forge tokens, which aligns with 'Abuse Elevation Control Mechanism'."
+        }
+      }
+    ]
+  }
+}

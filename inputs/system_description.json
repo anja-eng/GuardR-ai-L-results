@@ -1,0 +1,543 @@
+{
+  "system_name": "Keyless Entry and Start System",
+  "system_description": "A passive keyless entry and start (PKES) system that allows users to unlock doors and start the engine using a wireless key fob. The system consists of LF antennas, RF transceivers, a body control module (BCM), door ECUs, and a start authorization ECU. The vehicle authenticates the key fob using challenge-response cryptography before enabling entry or ignition.",
+  "components": [
+    {
+      "id": "EXT_1",
+      "name": "Key Fob",
+      "type": "external_entity",
+      "description": "Wireless key carried by the user containing cryptographic keys and a microcontroller."
+    },
+    {
+      "id": "ANT_1",
+      "name": "LF Antenna (Door Handle)",
+      "type": "sensor_actuator",
+      "description": "Emits low-frequency signals to detect proximity of the key fob."
+    },
+    {
+      "id": "ANT_RF_1",
+      "name": "Vehicle RF Antenna",
+      "type": "antenna",
+      "description": "Physical RF antenna connected to the vehicle RF transceiver used to transmit and receive UHF challenge/response frames. Sits at the vehicle exterior and is part of the Wireless Communication Boundary; subject to relay and external RF attacks."
+    },
+    {
+      "id": "RF_1",
+      "name": "RF Transceiver (Vehicle)",
+      "type": "communication_module",
+      "description": "Performs wireless UHF communication with the key fob. Acts as the RF front-end that forwards received RF frames (responses) to the BCM after demodulation. Located within the wireless trust boundary on the vehicle side."
+    },
+    {
+      "id": "BCM_1",
+      "name": "Body Control Module (BCM)",
+      "type": "ecu",
+      "description": "Central ECU responsible for door locking/unlocking logic and key authentication. Coordinates LF wake events, issues RF challenges via RF transceiver, forwards RF responses to HSM for verification, and issues token-bearing unlock/start commands on the in-vehicle network."
+    },
+    {
+      "id": "ECU_DOOR",
+      "name": "Door ECU",
+      "type": "ecu",
+      "description": "Controls physical locking and unlocking of doors. Receives unlock/lock commands (including authorization token) from the BCM and drives the Door Lock Actuator."
+    },
+    {
+      "id": "ECU_START",
+      "name": "Start Authorization ECU",
+      "type": "ecu",
+      "description": "Verifies authentication/authorization token coming from BCM (or HSM authorizations forwarded by BCM) and enables engine start. Located at the boundary between body domain and powertrain interface domain."
+    },
+    {
+      "id": "BUS_CAN",
+      "name": "CAN Bus",
+      "type": "communication_bus",
+      "description": "In-vehicle network linking BCM, Door ECU, and Start Authorization ECU. In the diagram CAN is shown as the primary internal transport for lock/unlock and start authorization messages; these messages are assumed to be integrity-protected by design choices (e.g., tokens/MACs) but the bus itself is typically a broadcast medium unless additional protections are applied."
+    },
+    {
+      "id": "HSM_1",
+      "name": "HSM / Secure Enclave",
+      "type": "secure_enclave",
+      "description": "Hardware Security Module or secure enclave used to store cryptographic keys and perform sensitive crypto operations via a restricted API. Hosts the crypto engine and persistent key storage. Accessed by BCM through an authenticated, restricted API."
+    },
+    {
+      "id": "CRYPTO_ENG_1",
+      "name": "Crypto Engine",
+      "type": "crypto_module",
+      "description": "Performs cryptographic operations (challenge-response verification, signatures, MACs) inside the HSM / secure enclave. In the diagram the crypto engine consumes keys from the cryptographic keystore within the HSM and returns verification results or signed/MAC'd tokens."
+    },
+    {
+      "id": "KEYSTORE_1",
+      "name": "Cryptographic Key Store",
+      "type": "secure_storage",
+      "description": "Persistent storage (within HSM) containing vehicle private/shared keys and any key lifecycle metadata."
+    },
+    {
+      "id": "DOOR_ACT_1",
+      "name": "Door Lock Actuator",
+      "type": "actuator",
+      "description": "Physical actuator that locks/unlocks the door; controlled by Door ECU."
+    },
+    {
+      "id": "ENGINE_ECU",
+      "name": "Engine ECU / Inverter",
+      "type": "powertrain_ecu",
+      "description": "Powertrain ECU or inverter that actually enables motor/engine operation when start authorization is received. Located in the Powertrain Interface Domain."
+    },
+    {
+      "id": "LF_RX_1",
+      "name": "LF Receiver / LF Front-End",
+      "type": "communication_module",
+      "description": "Vehicle LF receive electronics connected to the LF antenna that detect LF wake/proximity signals and produce a digital wake/proximity event for the BCM. The diagram implies LF wake is observed by the vehicle and triggers subsequent challenge flows."
+    }
+  ],
+  "assets": {
+    "functional_assets": [
+      {
+        "id": "F1",
+        "name": "Door Lock/Unlock Command",
+        "description": "Command that triggers the actuation of door locking or unlocking."
+      },
+      {
+        "id": "F2",
+        "name": "Engine Start Command",
+        "description": "Command that allows the engine to start once the key fob is authenticated."
+      }
+    ],
+    "information_assets": [
+      {
+        "id": "I1",
+        "name": "Cryptographic Key Material",
+        "description": "Shared secret between key fob and vehicle used in challenge–response."
+      },
+      {
+        "id": "I2",
+        "name": "Challenge-Response Nonces",
+        "description": "Random values exchanged between the fob and vehicle."
+      },
+      {
+        "id": "I3",
+        "name": "Firmware in BCM",
+        "description": "Software controlling authentication and lock logic."
+      },
+      {
+        "id": "I4",
+        "name": "Start Authorization Token",
+        "description": "Token/authorization blob produced by authentication (and potentially signed or MAC'd by HSM) that the BCM provides to Start Authorization ECU to enable engine start."
+      },
+      {
+        "id": "I5",
+        "name": "Auth Data (RF response forwarded)",
+        "description": "Authentication data or response packets received from the key fob and forwarded by the RF transceiver to the BCM for verification."
+      },
+      {
+        "id": "I6",
+        "name": "Message Annotations (diagram labels)",
+        "description": "Observed message annotation tags from the architecture diagram (e.g., [S, T, R, I, D, E]). Metadata includes assumed interpretation (see metadata.diagram_message_annotations)."
+      },
+      {
+        "id": "I7",
+        "name": "RF Transceiver Firmware",
+        "description": "Firmware/firmware configuration of the RF transceiver (modem stack, demodulation and forwarding logic). Compromise could allow forging or modifying forwarded Auth Data, or leaking internal messages."
+      },
+      {
+        "id": "I8",
+        "name": "HSM Firmware / Secure Boot Measurements",
+        "description": "Firmware and attestation/measurement state of the HSM; used to ensure the HSM is running authorized code and to bound trust in the non-exportability of keys."
+      },
+      {
+        "id": "I9",
+        "name": "BCM Configuration and Access Policies",
+        "description": "Configuration data and access control policies used by the BCM to decide when to initiate challenges, accept tokens, and authorize commands to ECUs."
+      },
+      {
+        "id": "I10",
+        "name": "HSM Attestation / Measurement Data",
+        "description": "Signed measurement/attestation reports (firmware version, secure boot hash, timestamp) produced by the HSM to prove its integrity to the BCM or other internal parties. The diagram implies attestation/measurement data exist or should exist as part of HSM security assurances."
+      }
+    ],
+    "communication_assets": [
+      {
+        "id": "C1",
+        "name": "LF Proximity Signal",
+        "description": "Low-frequency signal from car to key fob to detect proximity."
+      },
+      {
+        "id": "C2",
+        "name": "RF Challenge-Response Messages",
+        "description": "Wireless communication channel between key fob and vehicle."
+      },
+      {
+        "id": "C3",
+        "name": "CAN Lock/Unlock Message",
+        "description": "Internal message sent by BCM to Door ECU."
+      },
+      {
+        "id": "C4",
+        "name": "Restricted HSM API",
+        "description": "Authenticated/authorized internal API between BCM and HSM for crypto operations and key usage. Assumed to enforce access control and limit key export.",
+        "notes": "Used for challenge verification and for generating/returning authorization tokens."
+      },
+      {
+        "id": "C5",
+        "name": "Powertrain Start Interface",
+        "description": "Internal CAN or powertrain interface message from Start Authorization ECU to Engine ECU / Inverter to enable propulsion."
+      },
+      {
+        "id": "C6",
+        "name": "Door ECU -> Actuator Signal",
+        "description": "Local electrical control signal from Door ECU to Door Lock Actuator."
+      },
+      {
+        "id": "C7",
+        "name": "In-Vehicle CAN (broadcast medium)",
+        "description": "General in-vehicle CAN transport used by BCM, Door ECU, and Start Authorization ECU. The diagram indicates tokens/MACs are used to provide message-level integrity/authorization because the bus itself is a broadcast medium and not inherently confidential."
+      },
+      {
+        "id": "C8",
+        "name": "HSM Internal Bus / Key Access",
+        "description": "Internal secure communications inside the HSM between Crypto Engine and Cryptographic Key Store. Keys are accessed but not exportable; crypto operations occur inside the enclave."
+      },
+      {
+        "id": "C9",
+        "name": "BCM -> RF Transceiver Control Interface",
+        "description": "Control interface used by the BCM to instruct the RF transceiver to transmit challenges or adjust radio parameters. Contains challenge payloads and metadata such as session id and transmission parameters.",
+        "notes": "This control interface sits inside the wireless trust boundary on the vehicle side and must be authenticated to prevent unauthorized transmission."
+      },
+      {
+        "id": "C10",
+        "name": "RF Transceiver -> Vehicle Antenna RF Link",
+        "description": "Analog RF feed between the RF transceiver and the vehicle RF antenna; carries the modulated RF waveform to/from the external environment."
+      },
+      {
+        "id": "C11",
+        "name": "RF receive metadata (RSSI/timestamp)",
+        "description": "Auxiliary metadata produced by the RF front-end for each received frame that may be consumed by BCM/HSM for decision making (e.g., RSSI, timestamp, antenna port)."
+      },
+      {
+        "id": "C12",
+        "name": "LF Receiver -> BCM Event / Control Link",
+        "description": "Digital event/control link from LF front-end to BCM conveying wake/proximity detection events and LF measurement metadata (antenna port, RSSI, timestamp). This internal link is implied by the diagram's LF wake-up flow."
+      }
+    ]
+  },
+  "data_flows": [
+    {
+      "id": "DF1",
+      "source": "ANT_1",
+      "destination": "EXT_1",
+      "description": "LF proximity trigger signal.",
+      "message_contents": [
+        "LF wake-up frame",
+        "proximity request"
+      ],
+      "diagram_annotations": "[S, R, D]",
+      "notes": "Diagram labels the LF Proximity Signal with tags [S, R, D] (see metadata.diagram_message_annotations for assumed meanings). LF is primarily a wake/proximity detection channel (125 kHz)."
+    },
+    {
+      "id": "DF2",
+      "source": "RF_1",
+      "destination": "EXT_1",
+      "description": "RF challenge sent to key fob.",
+      "message_contents": [
+        "challenge nonce",
+        "challenge metadata (e.g., session id)"
+      ],
+      "diagram_annotations": "[S, T, R]",
+      "notes": "Diagram annotates RF challenge with [S, T, R] (see metadata.diagram_message_annotations)."
+    },
+    {
+      "id": "DF3",
+      "source": "EXT_1",
+      "destination": "RF_1",
+      "description": "RF response message from key fob with authentication data.",
+      "message_contents": [
+        "response (MAC/signature over challenge + nonce)",
+        "key identifier",
+        "optional sensor/state data"
+      ],
+      "diagram_annotations": "[S, T, R, I]",
+      "notes": "Diagram annotates RF response with [S, T, R, I]. RF response is received and demodulated by RF transceiver before being forwarded to the BCM."
+    },
+    {
+      "id": "DF4",
+      "source": "BCM_1",
+      "destination": "ECU_DOOR",
+      "description": "CAN message: lock/unlock door."
+    },
+    {
+      "id": "DF5",
+      "source": "BCM_1",
+      "destination": "ECU_START",
+      "description": "CAN message: key authenticated → allow engine start.",
+      "message_contents": [
+        "start authorization command (may include Start Authorization Token / authorization MAC)"
+      ],
+      "diagram_annotations": "[S, T, E]",
+      "notes": "Diagram indicates the Start Authorization Token is sent to the Start Authorization ECU; token is assumed to be integrity-protected and time-limited."
+    },
+    {
+      "id": "DF6",
+      "source": "RF_1",
+      "destination": "BCM_1",
+      "description": "Auth Data: RF transceiver forwards the RF response / challenge data to the BCM for processing.",
+      "message_contents": [
+        "demodulated RF frames containing key fob response",
+        "metadata (rssi, timestamp)"
+      ],
+      "diagram_annotations": "Auth Data (forwarded RF response)"
+    },
+    {
+      "id": "DF7",
+      "source": "BCM_1",
+      "destination": "HSM_1",
+      "description": "Restricted API call: BCM requests cryptographic verification (e.g., verify response, compute expected MAC) from the HSM's crypto engine.",
+      "message_contents": [
+        "verification request (response blob, challenge, key id, context)",
+        "caller authentication/credentials for API"
+      ],
+      "notes": "Diagram shows BCM invoking the HSM crypto engine; HSM performs crypto operations using non-exportable keys."
+    },
+    {
+      "id": "DF8",
+      "source": "HSM_1",
+      "destination": "BCM_1",
+      "description": "Crypto result / Authorization token: HSM returns verification result or signed/MAC'd authorization token to BCM (used to grant unlock/start).",
+      "message_contents": [
+        "verification status",
+        "authorization token (signed/MAC'd blob)",
+        "token expiration metadata"
+      ],
+      "diagram_annotations": "[S, T, E]",
+      "notes": "Diagram shows the token being produced by HSM/crypto engine and returned to BCM; tokens include integrity protection and timing info."
+    },
+    {
+      "id": "DF9",
+      "source": "ECU_DOOR",
+      "destination": "DOOR_ACT_1",
+      "description": "Door ECU issues actuator command to physically lock/unlock the door."
+    },
+    {
+      "id": "DF10",
+      "source": "ECU_START",
+      "destination": "ENGINE_ECU",
+      "description": "Powertrain interface: start enable / command forwarded to engine ECU / inverter to enable propulsion (once authorization granted)."
+    },
+    {
+      "id": "DF11",
+      "source": "BCM_1",
+      "destination": "ECU_DOOR",
+      "description": "Unlock Command including authorization token (BCM sends token/command to Door ECU). Note: DF4 already exists for CAN lock/unlock; this clarifies the token-bearing unlock flow.",
+      "message_contents": [
+        "unlock command",
+        "authorization token (signed/MAC'd)",
+        "timestamp / session id"
+      ],
+      "diagram_annotations": "[S, T, D]",
+      "notes": "Diagram highlights that unlock commands carry a token to prove the authentication occurred."
+    },
+    {
+      "id": "DF12",
+      "source": "CRYPTO_ENG_1",
+      "destination": "KEYSTORE_1",
+      "description": "Internal HSM flow: Crypto Engine accesses cryptographic keys and key metadata from the Cryptographic Key Store to perform verification and generate tokens.",
+      "notes": "Keys are used inside the HSM and are assumed non-exportable; access occurs over an internal secure channel inside the HSM (see assets.C8)."
+    },
+    {
+      "id": "DF13",
+      "source": "BCM_1",
+      "destination": "ECU_START",
+      "description": "Explicit token-bearing start authorization flow from BCM to Start Authorization ECU (clarifies DF5): BCM forwards Start Authorization Token produced/validated by HSM to Start Authorization ECU to enable engine start.",
+      "message_contents": [
+        "Start Authorization Token (signed/MAC'd)",
+        "context (e.g., authorized user id, timestamp)"
+      ],
+      "notes": "This flow mirrors DF5 but is added to make token semantics explicit as shown in the diagram."
+    },
+    {
+      "id": "DF14",
+      "source": "BCM_1",
+      "destination": "RF_1",
+      "description": "Transmit control: BCM instructs the RF transceiver to transmit a challenge over the UHF channel.",
+      "message_contents": [
+        "challenge payload (nonce, session id)",
+        "transmission parameters (antenna selection, power)",
+        "caller/session authentication"
+      ],
+      "diagram_annotations": "[S, T, R]",
+      "notes": "Diagram shows BCM as the originator of challenges; the RF transceiver acts as a modem/transmitter under BCM control."
+    },
+    {
+      "id": "DF15",
+      "source": "RF_1",
+      "destination": "ANT_RF_1",
+      "description": "Analog RF waveform: modulated UHF waveform conveyed to/from the vehicle RF antenna.",
+      "message_contents": [
+        "modulated RF waveform carrying challenge/response frames",
+        "physical-layer characteristics (power, antenna port)"
+      ],
+      "notes": "This physical link is part of the Wireless Communication Boundary and is susceptible to relay and physical-layer attacks (e.g., signal amplification, antenna spoofing)."
+    },
+    {
+      "id": "DF16",
+      "source": "ANT_RF_1",
+      "destination": "RF_1",
+      "description": "Received RF waveform delivered to the transceiver for demodulation (response from key fob).",
+      "message_contents": [
+        "RF waveform from remote key fob",
+        "received signal strength and timing"
+      ],
+      "notes": "Represents the receive direction of the RF air interface delivered via the vehicle antenna to the RF modem."
+    },
+    {
+      "id": "DF17",
+      "source": "LF_RX_1",
+      "destination": "BCM_1",
+      "description": "LF wake/proximity event forwarded to BCM: LF front-end detects LF wake-up signal and provides event/metadata to BCM to trigger RF challenge flow.",
+      "message_contents": [
+        "LF wake indicator",
+        "antenna port identifier",
+        "LF measurement metadata (signal strength, timestamp)"
+      ],
+      "diagram_annotations": "[S, R, D]",
+      "notes": "Diagram implies an LF detection event reaches the BCM (LF antenna alone does not describe how the BCM is triggered). This flow makes explicit the internal LF receiver -> BCM control link."
+    },
+    {
+      "id": "DF18",
+      "source": "HSM_1",
+      "destination": "BCM_1",
+      "description": "HSM Attestation / Measurement Report: signed measurement or attestation data provided to BCM for integrity checks of the HSM.",
+      "message_contents": [
+        "secure-boot measurement hash",
+        "firmware version",
+        "attestation signature",
+        "timestamp"
+      ],
+      "notes": "The diagram shows HSM and metadata for firmware/secure boot; explicit attestation flow is added to reflect best-practice interactions implied by the diagram's HSM measurements asset."
+    }
+  ],
+  "trust_boundaries": [
+    {
+      "id": "TB1",
+      "name": "Wireless Communication Boundary",
+      "description": "Boundary between external environment and vehicle systems for RF and LF communication.",
+      "crosses": [
+        "DF1",
+        "DF2",
+        "DF3",
+        "DF15",
+        "DF16"
+      ]
+    },
+    {
+      "id": "TB2",
+      "name": "In-Vehicle Network Boundary",
+      "description": "Boundary protecting internal ECUs; assumes no unauthorized physical access.",
+      "crosses": [
+        "DF4",
+        "DF5"
+      ]
+    },
+    {
+      "id": "TB3",
+      "name": "Body Domain Boundary (internal segmentation)",
+      "description": "Segmentation boundary inside the in-vehicle trust boundary separating body-domain services (BCM, Door ECU, HSM) and secure enclave from other domains. Enforces internal access controls (e.g., restricted HSM API).",
+      "crosses": [
+        "DF6",
+        "DF7",
+        "DF8",
+        "DF11",
+        "DF9",
+        "DF12"
+      ]
+    },
+    {
+      "id": "TB4",
+      "name": "Powertrain Interface Domain Boundary",
+      "description": "Boundary separating body/control domain from the powertrain domain (Engine ECU / Inverter). Start authorization crosses this boundary.",
+      "crosses": [
+        "DF10",
+        "DF5",
+        "DF13"
+      ]
+    },
+    {
+      "id": "TB5",
+      "name": "Wireless Trust Boundary (vehicle RF front-end)",
+      "description": "Trust boundary separating RF transceiver (vehicle side) from the remainder of the vehicle ECUs; the RF transceiver performs demodulation and forwards payloads (Auth Data) across this boundary to the BCM. The diagram shows the RF transceiver sitting inside the Wireless Communication Boundary but at the vehicle edge.",
+      "crosses": [
+        "DF6"
+      ]
+    },
+    {
+      "id": "TB6",
+      "name": "HSM / Secure Enclave Boundary",
+      "description": "Boundary surrounding the HSM and internal crypto components (crypto engine, key store). Represents a higher-isolation trust region where keys are non-exportable and internal channels (DF12) are protected.",
+      "crosses": [
+        "DF12",
+        "DF7",
+        "DF8",
+        "DF18"
+      ]
+    }
+  ],
+  "metadata": {
+    "standard_alignment": {
+      "ISO_21434": [
+        "4.5",
+        "9.4",
+        "10.4"
+      ],
+      "UNECE_R155": [
+        "CSMS Threat Analysis",
+        "Vulnerable Interfaces"
+      ]
+    },
+    "created_by": "Example",
+    "version": "1.3",
+    "diagram_source": "Merged from provided keyless entry architecture diagram (shows HSM, crypto engine, key storage, door actuator, engine ECU, internal domains and flows)",
+    "notes": {
+      "lf_frequency": "125 kHz (wake-up / proximity)",
+      "rf_channel": "UHF channel (vehicle RF transceiver) - typical bands vary by region (e.g., 315/433/868/915 MHz)",
+      "hsm_assumptions": "HSM implements non-exportable key storage and a restricted API; BCM invokes HSM for verification and token generation. Tokens are assumed to be integrity-protected (MAC/signed) and time-limited.",
+      "domains": [
+        "Wireless Communication (external)",
+        "Body Domain (BCM, Door ECU, HSM)",
+        "Door Control Domain (Door ECU, Door Actuator)",
+        "Powertrain Interface Domain (Start Authorization ECU, Engine ECU/Inverter)"
+      ],
+      "security_considerations": [
+        "Ensure LF/RF boundary protections (e.g., replay protection, distance bounding where applicable).",
+        "Restricted API calls to HSM must authenticate caller and limit key usage.",
+        "Authorization tokens should be integrity protected and short-lived to reduce replay risk.",
+        "Internal CAN is assumed trusted within the In-Vehicle boundary but segmentation exists between body and powertrain domains.",
+        "Vehicle RF antenna and RF transceiver firmware are exterior-facing and therefore high-value targets for relay, spoofing, or firmware compromise. Protect the BCM->RF control channel and apply secure firmware update/authentication to the RF module.",
+        "Demodulation/forwarding RF transceiver performing no verification increases attack surface; an attacker with physical or firmware access to the transceiver could manipulate forwarded Auth Data.",
+        "LF front-end to BCM controls must be authenticated/validated at design level to avoid false wake events or attacker-supplied wake signals causing undue challenge emission."
+      ]
+    },
+    "diagram_message_annotations": {
+      "observed_tags": [
+        "[S, R, D]",
+        "[S, T, R]",
+        "[S, T, R, I]",
+        "[S, T, E]",
+        "[S, T, D]"
+      ],
+      "assumed_interpretation": {
+        "S": "Security-related wrapper (e.g., signed/MAC'd content or security context). Assumed to denote integrity/auth protection is applied.",
+        "T": "Time-related data (timestamp, time-to-live, or freshness indicator).",
+        "R": "Random nonce or challenge/response value used for freshness.",
+        "I": "Identifier (e.g., key identifier, fob ID, session id).",
+        "D": "Door-specific command context or domain-specific data (e.g., unlock request).",
+        "E": "Start/Engine-related token data (context for enabling powertrain)."
+      },
+      "interpretation_notes": "The diagram uses short bracketed tags adjacent to message flows. The mapping above is an informed assumption to aid threat modeling and should be validated against protocol/spec documentation. These interpretations were extracted from the visual labels on the architecture diagram and appended as metadata rather than replacing canonical protocol definitions."
+    },
+    "additional_observations_from_diagram": [
+      "RF transceiver acts as a demodulator/forwarder: it passes 'Auth Data' to the BCM rather than performing full verification itself.",
+      "Diagram explicitly shows the Crypto Engine inside the HSM reading from cryptographic key storage and returning tokens to the BCM.",
+      "Tokens produced by the HSM include time/freshness information and are intended for both Door ECU and Start Authorization ECU.",
+      "The BCM is the central coordinator: it handles LF wake-up, triggers RF challenge, forwards RF responses to HSM, and distributes tokens/commands to Door ECU and Start Authorization ECU.",
+      "Vehicle RF antenna and the analog RF feed (transceiver<->antenna) are explicit in the diagram and form the external-facing part of the wireless boundary; attacks such as relay or antenna tampering are relevant.",
+      "The diagram implies an LF front-end module (LF receiver) provides detection events to the BCM; an explicit internal LF_RX -> BCM flow (DF17) has been added to reflect this.",
+      "HSM attestation/measurement capability is shown/assumed in the diagram; an explicit attestation flow (DF18) and asset (I10) were added to represent signed measurements the HSM can produce for integrity validation."
+    ]
+  }
+}

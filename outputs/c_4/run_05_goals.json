@@ -1,0 +1,1369 @@
+{
+  "cybersecurity_goals": [
+    {
+      "csg_id": "CSG_KEY_FOB_01",
+      "component": "Key Fob",
+      "csg_statement": "The Key Fob shall enforce the Authenticity, Confidentiality, and Integrity of RF Challenge-Response Messages and Cryptographic Key Material against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking and starting.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "I1",
+          "C2"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_KEY_FOB_02",
+      "component": "Key Fob",
+      "csg_statement": "The Key Fob shall protect the Confidentiality and Authenticity of Cryptographic Key Material against Physical Modification to prevent unauthorized vehicle unlocking and starting.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Penetration Testing / Side-Channel Analysis / Fault Injection Testing",
+      "security_properties": [
+        "Confidentiality",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I1"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_LF_ANTENNA__DOOR_HANDLE__03",
+      "component": "LF Antenna (Door Handle)",
+      "csg_statement": "The LF Antenna (Door Handle) shall enforce the Authenticity, Integrity, and Availability of LF Proximity Signal against ATM-T0004: Analog Sensor Attacks to prevent unauthorized vehicle wake-up and challenge emission.",
+      "functional_boundary": "In-Vehicle / Physical Interface",
+      "verification_method": "Penetration Testing / Signal Injection Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "C1"
+        ],
+        "linked_atm_technique": "ATM-T0004",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_LF_ANTENNA__DOOR_HANDLE__04",
+      "component": "LF Antenna (Door Handle)",
+      "csg_statement": "The LF Antenna (Door Handle) shall enforce the Availability of the LF Proximity Signal against ATM-T0016: Physical Modification to prevent denial of legitimate vehicle access and immobilization.",
+      "functional_boundary": "Vehicle Exterior / Physical Interface",
+      "verification_method": "Physical Inspection / Tamper Detection Test",
+      "security_properties": [
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C1"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_VEHICLE_RF_ANTENNA_05",
+      "component": "Vehicle RF Antenna",
+      "csg_statement": "The Vehicle RF Antenna shall protect the Confidentiality and Authenticity of the RF Transceiver to Vehicle Antenna RF Link against Physical Access to prevent unauthorized vehicle entry or start via relay or replay attacks.",
+      "functional_boundary": "In-Vehicle / Physical Interface",
+      "verification_method": "Test / Physical Inspection / Signal Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "C10"
+        ],
+        "linked_atm_technique": "ATM-T0073",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_VEHICLE_RF_ANTENNA_06",
+      "component": "Vehicle RF Antenna",
+      "csg_statement": "The Vehicle RF Antenna shall enforce the Authenticity, Confidentiality, Integrity, and Availability of the RF Transceiver to Vehicle Antenna RF Link against ATM-T0007: Relay Communications to prevent unauthorized vehicle access, engine start, or denial of service.",
+      "functional_boundary": "In-Vehicle / Wireless Interface",
+      "verification_method": "Penetration Test / Physical Tamper Assessment / RF Protocol Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "C10"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_RF_TRANSCEIVER__VEHICLE__07",
+      "component": "RF Transceiver (Vehicle)",
+      "csg_statement": "The RF Transceiver (Vehicle) shall enforce the Authenticity, Integrity, and Confidentiality of Auth Data and RF Transceiver Firmware against ATM-T0016: Physical Modification to prevent unauthorized vehicle unlocking and engine start.",
+      "functional_boundary": "In-Vehicle / RF Interface",
+      "verification_method": "Penetration Test / Firmware Integrity Check",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "I5",
+          "I7",
+          "C9"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_RF_TRANSCEIVER__VEHICLE__08",
+      "component": "RF Transceiver (Vehicle)",
+      "csg_statement": "The RF Transceiver (Vehicle) shall protect the Confidentiality and Authenticity of Auth Data and RF Transceiver Firmware against ATM-T0073: Physical Access to prevent unauthorized disclosure of authentication data that could facilitate further attacks.",
+      "functional_boundary": "In-Vehicle / Physical Interface",
+      "verification_method": "Penetration Test / Firmware Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I5",
+          "I7"
+        ],
+        "linked_atm_technique": "ATM-T0073",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_RF_TRANSCEIVER__VEHICLE__09",
+      "component": "RF Transceiver (Vehicle)",
+      "csg_statement": "The RF Transceiver (Vehicle) shall enforce the Availability and Authenticity of RF Challenge-Response Messages against ATM-T0004: Analog Sensor Attacks to prevent denial of vehicle access and engine start for legitimate users.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C2"
+        ],
+        "linked_atm_technique": "ATM-T0004",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_BODY_CONTROL_MODULE__BCM__10",
+      "component": "Body Control Module (BCM)",
+      "csg_statement": "The Body Control Module (BCM) shall enforce the Integrity and Authenticity of Firmware and Configuration against Bypass Code Integrity Protections to prevent unauthorized unlocking of doors, unauthorized engine start, and compromise of authentication processes.",
+      "functional_boundary": "In-Vehicle / Physical Access",
+      "verification_method": "Penetration Testing / Firmware Integrity Verification",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "I3",
+          "I9",
+          "F1",
+          "F2"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_BODY_CONTROL_MODULE__BCM__11",
+      "component": "Body Control Module (BCM)",
+      "csg_statement": "The Body Control Module (BCM) shall enforce the Authenticity and Integrity of Door Lock/Unlock Command and Engine Start Command log records against ATM-T0059: Data from Local System to prevent denial of command issuance and ensure accountability during forensic investigations.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Test / Log Integrity Audit",
+      "security_properties": [
+        "Authenticity",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Repudiation",
+        "linked_asset_ids": [
+          "F1",
+          "F2"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_BODY_CONTROL_MODULE__BCM__12",
+      "component": "Body Control Module (BCM)",
+      "csg_statement": "The Body Control Module (BCM) shall protect the Confidentiality and Integrity of Firmware, Configuration, and Access Policies against ATM-T0059: Data from Local System to prevent unauthorized extraction or manipulation of sensitive information leading to bypass of authentication or access control.",
+      "functional_boundary": "In-Vehicle / Physical Access",
+      "verification_method": "Penetration Testing / Interface and Side Channel Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I3",
+          "I9"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_BODY_CONTROL_MODULE__BCM__13",
+      "component": "Body Control Module (BCM)",
+      "csg_statement": "The Body Control Module (BCM) shall enforce the Availability and Authenticity of LF Proximity Signal and RF Challenge-Response Messages against ATM-T0068: CAN Bus Denial of Service to prevent unauthorized denial of vehicle access and operation.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C1",
+          "C2"
+        ],
+        "linked_atm_technique": "ATM-T0068",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_BODY_CONTROL_MODULE__BCM__14",
+      "component": "Body Control Module (BCM)",
+      "csg_statement": "The Body Control Module (BCM) shall enforce the Authenticity, Integrity, and Availability of the Restricted HSM API and Start Authorization Token against Bypass Code Integrity Protections to prevent unauthorized engine start or door unlocking.",
+      "functional_boundary": "In-Vehicle Network",
+      "verification_method": "Penetration Test / Interface Access Control Validation",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "C4",
+          "I4"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_DOOR_ECU_15",
+      "component": "Door ECU",
+      "csg_statement": "The Door ECU shall enforce the Authenticity, Integrity, and Availability of Door Lock/Unlock Command and CAN Lock/Unlock Message against ATM-T0067: Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized door unlocking or blocking of legitimate locking commands.",
+      "functional_boundary": "In-Vehicle / CAN Network",
+      "verification_method": "Penetration Test / Firmware Analysis / CAN Message Injection Test",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "F1",
+          "C3"
+        ],
+        "linked_atm_technique": "ATM-T0067",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_DOOR_ECU_16",
+      "component": "Door ECU",
+      "csg_statement": "The Door ECU shall enforce the Availability, Integrity, and Authenticity of CAN Lock/Unlock Message and Door ECU -> Actuator Signal against ATM-T0068: CAN Bus Denial of Service to prevent loss of electronic door locking and unlocking functionality.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Test / Fault Injection / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Integrity",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C3",
+          "C6"
+        ],
+        "linked_atm_technique": "ATM-T0068",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_DOOR_ECU_17",
+      "component": "Door ECU",
+      "csg_statement": "The Door ECU shall enforce the Authenticity and Integrity of Start Authorization Token and CAN Lock/Unlock Message against ATM-T0070: Modify Bus Message to prevent unauthorized unlocking of vehicle doors.",
+      "functional_boundary": "In-Vehicle / CAN Bus",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "I4",
+          "C3"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_START_AUTHORIZATION_ECU_18",
+      "component": "Start Authorization ECU",
+      "csg_statement": "The Start Authorization ECU shall enforce the Integrity and Authenticity of the Engine Start Command and Start Authorization Token against ATM-T0031: Bypass Code Integrity Protections to prevent unauthorized engine start and vehicle theft.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Code Integrity Verification / Penetration Testing",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "F2",
+          "I4"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_START_AUTHORIZATION_ECU_19",
+      "component": "Start Authorization ECU",
+      "csg_statement": "The Start Authorization ECU shall enforce the Authenticity and Integrity of the Start Authorization Token on the Powertrain Start Interface against Modify Bus Message to prevent unauthorized engine start and vehicle theft.",
+      "functional_boundary": "In-Vehicle / Powertrain Start Interface",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "I4",
+          "C5"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_START_AUTHORIZATION_ECU_20",
+      "component": "Start Authorization ECU",
+      "csg_statement": "The Start Authorization ECU shall enforce the Availability, Authenticity, and Integrity of the Powertrain Start Interface against ATM-T0068: CAN Bus Denial of Service to prevent unauthorized immobilization of the vehicle by blocking legitimate engine start requests.",
+      "functional_boundary": "In-Vehicle / Powertrain CAN Network",
+      "verification_method": "Test / Fault Injection / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C5"
+        ],
+        "linked_atm_technique": "ATM-T0068",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CAN_BUS_21",
+      "component": "CAN Bus",
+      "csg_statement": "The CAN Bus shall enforce the Authenticity and Integrity of Lock/Unlock and Start Authorization Messages against Modify Bus Message to prevent unauthorized vehicle entry and engine start.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "C3",
+          "C5",
+          "C7"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CAN_BUS_22",
+      "component": "CAN Bus",
+      "csg_statement": "The CAN Bus shall enforce the Availability and Integrity of In-Vehicle CAN communication against ATM-T0070: Modify Bus Message to prevent denial of service for keyless entry and engine start functions.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Test / Fault Injection / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity",
+        "Integrity",
+        "Confidentiality"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C7"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_23",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall enforce the Confidentiality, Integrity, and Authenticity of Cryptographic Key Material and Firmware against ATM-T0016: Physical Modification to prevent unauthorized vehicle access, starting, or fleet-wide key compromise.",
+      "functional_boundary": "In-Vehicle / Physical Access",
+      "verification_method": "Penetration Testing / Hardware Security Evaluation",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "I8",
+          "I10",
+          "I1"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_24",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall enforce the Integrity, Authenticity, and Non-repudiation of HSM Attestation / Measurement Data against ATM-T0059: Data from Local System to prevent undetected unauthorized cryptographic operations and loss of forensic traceability.",
+      "functional_boundary": "In-Vehicle / Secure Processing Environment",
+      "verification_method": "Test / Audit Log Review / Attestation Verification",
+      "security_properties": [
+        "Integrity",
+        "Authenticity",
+        "Non-repudiation"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Repudiation",
+        "linked_asset_ids": [
+          "I10"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_25",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall protect the Confidentiality, Integrity, and Authenticity of Cryptographic Key Material and Secure Boot Measurements against ATM-T0016: Physical Modification to prevent unauthorized vehicle unlocking, starting, or firmware manipulation.",
+      "functional_boundary": "In-Vehicle / Physical Access",
+      "verification_method": "Penetration Testing / Side-Channel and Fault Injection Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I1",
+          "I8"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_26",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall enforce the Availability, Authenticity, and Integrity of the Restricted HSM API against ATM-T0016: Physical Modification to prevent legitimate users from being unable to unlock or start the vehicle.",
+      "functional_boundary": "In-Vehicle / Physical Access Interface",
+      "verification_method": "Penetration Testing / Fault Injection Testing",
+      "security_properties": [
+        "Availability",
+        "Authenticity",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C4"
+        ],
+        "linked_atm_technique": "ATM-T0016",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_27",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall enforce the Authenticity, Confidentiality, Integrity, and Availability of the Restricted HSM API against ATM-T0031: Bypass Code Integrity Protections to prevent unauthorized cryptographic operations, extraction of sensitive data, and unauthorized vehicle access or starting.",
+      "functional_boundary": "In-Vehicle / Internal ECU Communication",
+      "verification_method": "Penetration Testing / API Authentication and Authorization Validation",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "C4"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_HSM___SECURE_ENCLAVE_28",
+      "component": "HSM / Secure Enclave",
+      "csg_statement": "The HSM / Secure Enclave shall enforce the Confidentiality, Integrity, Authenticity, and Availability of Cryptographic Key Material and HSM Firmware / Secure Boot Measurements against ATM-T0066: Standard Cryptographic Protocol to prevent unauthorized disclosure, manipulation, or exfiltration of cryptographic secrets and compromise of secure enclave trustworthiness.",
+      "functional_boundary": "In-Vehicle / Secure Hardware Boundary",
+      "verification_method": "Penetration Testing / Firmware Analysis / Secure Boot Validation",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I1",
+          "I8"
+        ],
+        "linked_atm_technique": "ATM-T0066",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CRYPTO_ENGINE_29",
+      "component": "Crypto Engine",
+      "csg_statement": "The Crypto Engine shall enforce the Integrity, Authenticity, Confidentiality, and Availability of Cryptographic Key Material and Start Authorization Token against ATM-T0067: Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized vehicle entry, engine start, or denial of service to legitimate users.",
+      "functional_boundary": "In-Vehicle / HSM Firmware and Diagnostic Interfaces",
+      "verification_method": "Penetration Test / Firmware Integrity Verification / Interface Security Assessment",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "I1",
+          "I4",
+          "C8"
+        ],
+        "linked_atm_technique": "ATM-T0067",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CRYPTO_ENGINE_30",
+      "component": "Crypto Engine",
+      "csg_statement": "The Crypto Engine shall protect the Confidentiality and Integrity of HSM Internal Bus and Key Access against ATM-T0059: Data from Local System to prevent leakage of cryptographic key usage patterns or intermediate data that could enable cryptanalysis or future key extraction.",
+      "functional_boundary": "In-Vehicle / Secure Enclave",
+      "verification_method": "Penetration Test / Interface Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "C8"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 1,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CRYPTOGRAPHIC_KEY_STORE_31",
+      "component": "Cryptographic Key Store",
+      "csg_statement": "The Cryptographic Key Store shall enforce the Confidentiality, Integrity, Authenticity, and Availability of Cryptographic Key Material against ATM-T0073: Physical Access to prevent unauthorized extraction or modification of private keys leading to vehicle theft or unauthorized access.",
+      "functional_boundary": "In-Vehicle / Secure Hardware Module",
+      "verification_method": "Penetration Testing / Hardware Security Evaluation",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "I1"
+        ],
+        "linked_atm_technique": "ATM-T0073",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_CRYPTOGRAPHIC_KEY_STORE_32",
+      "component": "Cryptographic Key Store",
+      "csg_statement": "The Cryptographic Key Store shall protect the Confidentiality, Integrity, and Authenticity of Cryptographic Key Material against Physical Access attacks using side-channel or fault injection techniques to prevent unauthorized vehicle entry, engine start, and key cloning.",
+      "functional_boundary": "In-Vehicle / Hardware Security Module (HSM)",
+      "verification_method": "Penetration Testing / Side-Channel and Fault Injection Analysis",
+      "security_properties": [
+        "Confidentiality",
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I1"
+        ],
+        "linked_atm_technique": "ATM-T0073",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_DOOR_LOCK_ACTUATOR_33",
+      "component": "Door Lock Actuator",
+      "csg_statement": "The Door Lock Actuator shall enforce the Authenticity, Availability, Confidentiality, and Integrity of Door Lock/Unlock Command and Door ECU -> Actuator Signal against ATM-T0069: Local Function to prevent unauthorized unlocking or denial of locking, thereby maintaining vehicle physical security.",
+      "functional_boundary": "In-Vehicle / Physical Access",
+      "verification_method": "Penetration Test / Physical Tampering Simulation",
+      "security_properties": [
+        "Authenticity",
+        "Availability",
+        "Confidentiality",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "F1",
+          "C6"
+        ],
+        "linked_atm_technique": "ATM-T0069",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_DOOR_LOCK_ACTUATOR_34",
+      "component": "Door Lock Actuator",
+      "csg_statement": "The Door Lock Actuator shall enforce the Availability, Integrity, and Authenticity of the Actuator Control Signal against ATM-T0070: Modify Bus Message to prevent denial of legitimate vehicle access or egress for authorized users.",
+      "functional_boundary": "In-Vehicle / Door Subsystem",
+      "verification_method": "Test / Signal Integrity Analysis",
+      "security_properties": [
+        "Availability",
+        "Integrity",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C6"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_ENGINE_ECU___INVERTER_35",
+      "component": "Engine ECU / Inverter",
+      "csg_statement": "The Engine ECU / Inverter shall enforce the Authenticity, Integrity, and Availability of the Engine Start Command and Powertrain Start Interface against ATM-T0067: Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized engine start or manipulation of propulsion controls leading to vehicle theft or unsafe operation.",
+      "functional_boundary": "In-Vehicle Network / Powertrain Start Interface",
+      "verification_method": "Penetration Test / Interface Fuzzing / Security Audit",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "F2",
+          "C5"
+        ],
+        "linked_atm_technique": "ATM-T0067",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_ENGINE_ECU___INVERTER_36",
+      "component": "Engine ECU / Inverter",
+      "csg_statement": "The Engine ECU / Inverter shall enforce the Availability, Authenticity, and Integrity of the Powertrain Start Interface against ATM-T0068: CAN Bus Denial of Service to prevent vehicle immobilization.",
+      "functional_boundary": "In-Vehicle / CAN Network",
+      "verification_method": "Test / Fault Injection / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C5"
+        ],
+        "linked_atm_technique": "ATM-T0068",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_ENGINE_ECU___INVERTER_37",
+      "component": "Engine ECU / Inverter",
+      "csg_statement": "The Engine ECU / Inverter shall enforce the Integrity, Authenticity, Availability, and Confidentiality of the Software Update Mechanism for the Engine Start Command and Powertrain Start Interface against ATM-T0021: Disable Software Update to prevent persistent unauthorized engine starts and loss of remediation capability.",
+      "functional_boundary": "In-Vehicle",
+      "verification_method": "Test / Interface Analysis / Penetration Testing",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability",
+        "Confidentiality"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "F2",
+          "C5"
+        ],
+        "linked_atm_technique": "ATM-T0021",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_LF_RECEIVER___LF_FRONT_END_38",
+      "component": "LF Receiver / LF Front-End",
+      "csg_statement": "The LF Receiver / LF Front-End shall enforce the Authenticity and Availability of LF Proximity Signal and LF Receiver -> BCM Event / Control Link against ATM-T0003: Manipulate Communications to prevent unauthorized wake events leading to battery drain or denial of service.",
+      "functional_boundary": "In-Vehicle / LF Wireless Interface",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "C1",
+          "C12"
+        ],
+        "linked_atm_technique": "ATM-T0003",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_LF_RECEIVER___LF_FRONT_END_39",
+      "component": "LF Receiver / LF Front-End",
+      "csg_statement": "The LF Receiver / LF Front-End shall ensure the Availability and Authenticity of the LF Proximity Signal against ATM-T0004: Analog Sensor Attacks to prevent denial of legitimate vehicle entry and engine start for authorized users.",
+      "functional_boundary": "In-Vehicle / LF Wireless Interface",
+      "verification_method": "Test / Fault Injection",
+      "security_properties": [
+        "Availability",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C1"
+        ],
+        "linked_atm_technique": "ATM-T0004",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_40",
+      "component": "GENERIC",
+      "csg_statement": "The Passive Keyless Entry System shall enforce the Authenticity, Confidentiality, and Integrity of LF Proximity Signals and RF Challenge-Response Messages against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking and engine starting.",
+      "functional_boundary": "Wireless Communication Boundary (TB1)",
+      "verification_method": "Penetration Testing / Protocol Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "C1",
+          "C2",
+          "C10"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_41",
+      "component": "GENERIC",
+      "csg_statement": "The Communication Modules and ECUs (RF Transceiver, BCM, HSM) shall enforce the Integrity and Authenticity of Firmware and Secure Boot Measurements against Bypass Code Integrity Protections to prevent unauthorized manipulation of authentication flows, unauthorized vehicle access, and compromise of cryptographic secrets.",
+      "functional_boundary": "Body Domain / Secure Enclave (TB3, TB6)",
+      "verification_method": "Penetration Test / Secure Boot Verification / Firmware Integrity Check",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "I3",
+          "I7",
+          "I8"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_42",
+      "component": "GENERIC",
+      "csg_statement": "The Vehicle Communication Interfaces shall enforce the Availability and Authenticity of LF Proximity Signal, RF Challenge-Response Messages, and In-Vehicle CAN against ATM-T0068: CAN Bus Denial of Service to prevent vehicle lockout or immobilization.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Availability",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "C1",
+          "C2",
+          "C7",
+          "C4"
+        ],
+        "linked_atm_technique": "ATM-T0068",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_43",
+      "component": "GENERIC",
+      "csg_statement": "The Body Control Module (BCM) shall enforce the Authenticity, Integrity, and Availability of the Restricted HSM API and BCM to RF Transceiver Control Interface against ATM-T0050: Abuse Standard Diagnostic Protocol for Lateral Movement to prevent unauthorized vehicle entry or engine start.",
+      "functional_boundary": "In-Vehicle Network",
+      "verification_method": "Interface Penetration Testing / API Authentication Validation",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "C4",
+          "C9"
+        ],
+        "linked_atm_technique": "ATM-T0050",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_44",
+      "component": "GENERIC",
+      "csg_statement": "The RF Communication Module shall enforce the Authenticity, Confidentiality, and Integrity of Challenge-Response Nonces and RF Challenge-Response Messages against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking or engine start.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Penetration Test / Protocol Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "I2",
+          "C2",
+          "DF2",
+          "DF3"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_45",
+      "component": "GENERIC",
+      "csg_statement": "The Keyless Entry and Start System shall protect the Confidentiality, Authenticity, and Integrity of Message Annotations and Protocol Metadata against ATM-T0059: Data from Local System to prevent attackers from crafting or timing attacks that could compromise vehicle access or operation.",
+      "functional_boundary": "In-Vehicle / Firmware / Documentation",
+      "verification_method": "Design Review / Static Analysis / Penetration Testing",
+      "security_properties": [
+        "Confidentiality",
+        "Authenticity",
+        "Integrity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "I6"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_46",
+      "component": "GENERIC",
+      "csg_statement": "The RF Transceiver shall enforce the Integrity and Authenticity of RF receive metadata against Bypass Code Integrity Protections to prevent unauthorized vehicle unlocking or starting due to relay attacks or distance fraud.",
+      "functional_boundary": "In-Vehicle / RF Interface",
+      "verification_method": "Firmware Integrity Test / Metadata Manipulation Simulation",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "C11",
+          "RF_1"
+        ],
+        "linked_atm_technique": "ATM-T0031",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_47",
+      "component": "GENERIC",
+      "csg_statement": "The LF Antenna System shall enforce the Availability of the LF Proximity Trigger Signal against Analog Sensor Attacks to prevent denial of legitimate vehicle access or start initiation.",
+      "functional_boundary": "In-Vehicle / Wireless Perimeter",
+      "verification_method": "Test / Fault Injection",
+      "security_properties": [
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Denial of Service",
+        "linked_asset_ids": [
+          "DF1"
+        ],
+        "linked_atm_technique": "ATM-T0004",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_48",
+      "component": "GENERIC",
+      "csg_statement": "The RF Transceiver shall enforce the Authenticity, Integrity, and Availability of RF Challenge Messages against ATM-T0003: Manipulate Communications to prevent denial of service or manipulation of the authentication process.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF2"
+        ],
+        "linked_atm_technique": "ATM-T0003",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_49",
+      "component": "GENERIC",
+      "csg_statement": "The RF Transceiver shall enforce the Authenticity and Confidentiality of RF Challenge-Response Messages between the Key Fob and Vehicle against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking and engine start.",
+      "functional_boundary": "In-Vehicle / Wireless",
+      "verification_method": "Penetration Test / Protocol Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF3"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_50",
+      "component": "GENERIC",
+      "csg_statement": "The Body Control Module and Door ECU shall enforce the Authenticity, Integrity, and Availability of CAN lock/unlock messages against Modify Bus Message to prevent unauthorized vehicle entry, theft, or denial of access to legitimate users.",
+      "functional_boundary": "In-Vehicle (CAN Bus Communication)",
+      "verification_method": "Penetration Test / Message Authentication Testing",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF4"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_51",
+      "component": "GENERIC",
+      "csg_statement": "The Start Authorization ECU shall enforce the Authenticity and Integrity of start authorization commands received from the BCM against Manipulate Communications to prevent unauthorized engine start and vehicle theft.",
+      "functional_boundary": "In-Vehicle / CAN Bus",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF5"
+        ],
+        "linked_atm_technique": "ATM-T0003",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_52",
+      "component": "GENERIC",
+      "csg_statement": "The RF transceiver and BCM shall enforce the Integrity, Authenticity, and Availability of Auth Data against ATM-T0003: Manipulate Communications to prevent authentication failures or unauthorized vehicle access.",
+      "functional_boundary": "In-Vehicle / RF Communication Path",
+      "verification_method": "Test / Interface Analysis / Penetration Testing",
+      "security_properties": [
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF6"
+        ],
+        "linked_atm_technique": "ATM-T0003",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_53",
+      "component": "GENERIC",
+      "csg_statement": "The BCM-HSM Interface shall enforce the Authenticity, Integrity, and Availability of Restricted API Calls against ATM-T0067: Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized actuation of vehicle functions such as door unlocking and engine starting.",
+      "functional_boundary": "In-Vehicle (BCM to HSM communication)",
+      "verification_method": "Penetration Testing / Interface Access Control Validation",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Elevation of Privilege",
+        "linked_asset_ids": [
+          "DF7"
+        ],
+        "linked_atm_technique": "ATM-T0067",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_54",
+      "component": "GENERIC",
+      "csg_statement": "The HSM-to-BCM Communication Channel shall protect the Confidentiality, Integrity, and Authenticity of Cryptographic Verification Results and Authorization Tokens against ATM-T0059: Data from Local System to prevent unauthorized vehicle unlocking, engine start, or leakage of cryptographic material.",
+      "functional_boundary": "In-Vehicle Network (CAN bus) between HSM_1 and BCM_1",
+      "verification_method": "Penetration Testing / Interface Monitoring / Message Authentication Validation",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "DF8"
+        ],
+        "linked_atm_technique": "ATM-T0059",
+        "unmitigated_risk_value": 3,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_55",
+      "component": "GENERIC",
+      "csg_statement": "The Door ECU shall enforce the Integrity and Availability of actuator command messages to the Door Lock Actuator against ATM-T0069: Local Function to prevent unauthorized locking, unlocking, or denial of access to the vehicle.",
+      "functional_boundary": "In-Vehicle Network (CAN) / Door ECU to Door Lock Actuator Interface",
+      "verification_method": "Penetration Test / Communication Path Analysis",
+      "security_properties": [
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF9"
+        ],
+        "linked_atm_technique": "ATM-T0069",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_56",
+      "component": "GENERIC",
+      "csg_statement": "The Engine ECU shall enforce the Integrity, Authenticity, and Availability of start enable command messages from the Start Authorization ECU against ATM-T0067: Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized engine start or denial of propulsion.",
+      "functional_boundary": "In-Vehicle CAN Network",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Integrity",
+        "Authenticity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF10"
+        ],
+        "linked_atm_technique": "ATM-T0067",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_57",
+      "component": "GENERIC",
+      "csg_statement": "The Door ECU shall enforce the Authenticity and Integrity of unlock command authorization tokens against ATM-T0069: Local Function to prevent unauthorized physical access to the vehicle.",
+      "functional_boundary": "In-Vehicle (CAN bus communication between BCM and Door ECU)",
+      "verification_method": "Penetration Test / Message Replay and Injection Testing",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF11"
+        ],
+        "linked_atm_technique": "ATM-T0069",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_58",
+      "component": "GENERIC",
+      "csg_statement": "The Hardware Security Module (HSM) shall enforce the Confidentiality, Integrity, and Authenticity of Cryptographic Key Material during internal communication between the Crypto Engine and the Cryptographic Key Store against ATM-T0074: Abuse Standard Diagnostic Protocol to Temporarily Modify Execution to prevent unauthorized key extraction, key modification, and compromise of the vehicle's keyless entry and start system.",
+      "functional_boundary": "In-Vehicle / Internal HSM Communication",
+      "verification_method": "Penetration Test / Interface Fuzzing / Code Review",
+      "security_properties": [
+        "Confidentiality",
+        "Integrity",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF12"
+        ],
+        "linked_atm_technique": "ATM-T0074",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_59",
+      "component": "GENERIC",
+      "csg_statement": "The Start Authorization ECU shall enforce the Authenticity and Integrity of Start Authorization Tokens on the BCM_1 to ECU_START communication against ATM-T0003: Manipulate Communications to prevent unauthorized engine start and vehicle theft.",
+      "functional_boundary": "In-Vehicle / CAN Network",
+      "verification_method": "Test / Interface Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF13"
+        ],
+        "linked_atm_technique": "ATM-T0003",
+        "unmitigated_risk_value": 5,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_60",
+      "component": "GENERIC",
+      "csg_statement": "The BCM-to-RF Transceiver Control Interface shall enforce the Integrity, Availability, and Authenticity of challenge payloads and transmission parameters against Modify Bus Message to prevent unauthorized challenge emissions, denial of service, and facilitation of relay or brute-force attacks.",
+      "functional_boundary": "In-Vehicle / BCM-to-RF Transceiver Interface",
+      "verification_method": "Interface Fuzzing / Penetration Testing / Message Authentication Validation",
+      "security_properties": [
+        "Integrity",
+        "Availability",
+        "Authenticity"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF14"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_61",
+      "component": "GENERIC",
+      "csg_statement": "The RF Antenna Feed shall enforce the Authenticity, Integrity, and Availability of RF Signal Transmission between RF_1 and ANT_RF_1 against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking, starting, or denial of legitimate user access.",
+      "functional_boundary": "Vehicle Exterior / Analog RF Link",
+      "verification_method": "Physical Penetration Test / Signal Integrity Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Availability"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Tampering",
+        "linked_asset_ids": [
+          "DF15"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_62",
+      "component": "GENERIC",
+      "csg_statement": "The LF Receiver and BCM shall enforce the Authenticity and Confidentiality of LF_RX_1 -> BCM_1 communications against ATM-T0007: Relay Communications to prevent unauthorized vehicle unlocking, starting, and battery depletion.",
+      "functional_boundary": "In-Vehicle / LF Interface",
+      "verification_method": "Penetration Test / Interface Signal Analysis",
+      "security_properties": [
+        "Authenticity",
+        "Confidentiality"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Spoofing",
+        "linked_asset_ids": [
+          "DF17"
+        ],
+        "linked_atm_technique": "ATM-T0007",
+        "unmitigated_risk_value": 4,
+        "target_treatment": "Reduce"
+      }
+    },
+    {
+      "csg_id": "CSG_GENERIC_63",
+      "component": "GENERIC",
+      "csg_statement": "The HSM-to-BCM Communication Interface shall enforce the Authenticity, Integrity, and Confidentiality of HSM attestation and measurement reports against ATM-T0070: Modify Bus Message to prevent the BCM from trusting compromised or falsified HSM states.",
+      "functional_boundary": "In-Vehicle Network / Internal ECU Interfaces",
+      "verification_method": "Penetration Test / Interface Message Integrity Verification",
+      "security_properties": [
+        "Authenticity",
+        "Integrity",
+        "Confidentiality"
+      ],
+      "traceability_matrix": {
+        "linked_stride_category": "Information Disclosure",
+        "linked_asset_ids": [
+          "DF18"
+        ],
+        "linked_atm_technique": "ATM-T0070",
+        "unmitigated_risk_value": 2,
+        "target_treatment": "Reduce"
+      }
+    }
+  ]
+}

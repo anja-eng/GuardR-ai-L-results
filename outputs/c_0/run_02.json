@@ -1,0 +1,475 @@
+{
+  "threats": [
+    {
+      "component": "Key Fob",
+      "threat_category": "Spoofing",
+      "threat_description": "Attacker relays or emulates key fob RF/LF signals to the vehicle to gain unauthorized entry or start.",
+      "linked_assets": [
+        "Door Lock/Unlock Command",
+        "Engine Start Command",
+        "Cryptographic Key Material",
+        "RF Challenge-Response Messages"
+      ],
+      "atm_technique_id": "ATM-T0007",
+      "atm_technique_name": "Relay Communications",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Major",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Relay attacks are well-known, feasible with commodity hardware, and result in direct vehicle theft or unauthorized entry.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Keyless Entry and Start System shall enforce freshness and proximity validation of RF Challenge-Response Messages against Relay Communications to prevent unauthorized unlocking or starting of the vehicle."
+      }
+    },
+    {
+      "component": "Key Fob",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker eavesdrops RF channel to capture challenge-response pairs, potentially enabling offline analysis or replay.",
+      "linked_assets": [
+        "Cryptographic Key Material",
+        "Challenge-Response Nonces",
+        "RF Challenge-Response Messages"
+      ],
+      "atm_technique_id": "ATM-T0038",
+      "atm_technique_name": "Network Sniffing",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Negligible",
+        "F": "Negligible",
+        "P": "Major"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "RF messages can be captured by passive eavesdroppers, risking privacy and potential future cryptanalysis.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Keyless Entry and Start System shall protect the confidentiality of RF Challenge-Response Messages against Network Sniffing to prevent disclosure of cryptographic secrets or identifiers."
+      }
+    },
+    {
+      "component": "LF Antenna (Door Handle)",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker injects or amplifies LF signals to trigger false proximity events, causing the vehicle to emit challenges when the fob is not present.",
+      "linked_assets": [
+        "LF Proximity Signal",
+        "Door Lock/Unlock Command"
+      ],
+      "atm_technique_id": "ATM-T0004",
+      "atm_technique_name": "Analog Sensor Attacks",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Major",
+        "F": "Moderate",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "LF relay/amplification is trivial and can enable relay or nuisance attacks, leading to unauthorized challenge emission.",
+      "cybersecurity_goal": {
+        "csg_statement": "The LF Receiver shall enforce validation and filtering of LF Proximity Signals against Analog Sensor Attacks to prevent unauthorized triggering of the keyless entry process."
+      }
+    },
+    {
+      "component": "Vehicle RF Antenna",
+      "threat_category": "Denial of Service",
+      "threat_description": "Attacker jams the RF channel, preventing key fob communication and disabling entry/start.",
+      "linked_assets": [
+        "RF Challenge-Response Messages",
+        "Door Lock/Unlock Command",
+        "Engine Start Command"
+      ],
+      "atm_technique_id": "ATM-T0002",
+      "atm_technique_name": "Jamming or Denial of Service",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Major",
+        "F": "Moderate",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "RF jamming is inherent to wireless systems and cannot be fully prevented; only detected and alarmed."
+    },
+    {
+      "component": "RF Transceiver (Vehicle)",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker compromises or reprograms RF transceiver firmware to forge, drop, or modify authentication data forwarded to the BCM.",
+      "linked_assets": [
+        "Auth Data (RF response forwarded)",
+        "RF Transceiver Firmware",
+        "RF Challenge-Response Messages"
+      ],
+      "atm_technique_id": "ATM-T0022",
+      "atm_technique_name": "Modify OS Kernel, Boot Partition, or System Partition",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE2",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET2"
+      },
+      "impact": {
+        "S": "Major",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Firmware compromise enables bypassing authentication and direct manipulation of unlock/start logic.",
+      "cybersecurity_goal": {
+        "csg_statement": "The RF Transceiver shall enforce secure boot and firmware authenticity of RF Transceiver Firmware against Modify OS Kernel, Boot Partition, or System Partition to prevent unauthorized manipulation of authentication data."
+      }
+    },
+    {
+      "component": "Body Control Module (BCM)",
+      "threat_category": "Elevation of Privilege",
+      "threat_description": "Attacker exploits BCM firmware or configuration to bypass authentication checks and issue unauthorized lock/unlock/start commands.",
+      "linked_assets": [
+        "Door Lock/Unlock Command",
+        "Engine Start Command",
+        "BCM Configuration and Access Policies",
+        "Firmware in BCM"
+      ],
+      "atm_technique_id": "ATM-T0026",
+      "atm_technique_name": "Exploit OS Vulnerability",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE2",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET2"
+      },
+      "impact": {
+        "S": "Major",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "BCM compromise directly enables full vehicle control; software vulnerabilities are plausible and must be addressed.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Body Control Module shall enforce integrity and access control of BCM Configuration and Access Policies and Firmware in BCM against Exploit OS Vulnerability to prevent unauthorized issuance of lock, unlock, or start commands."
+      }
+    },
+    {
+      "component": "Door ECU",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker injects CAN messages or reprograms Door ECU to unlock doors without valid token.",
+      "linked_assets": [
+        "CAN Lock/Unlock Message",
+        "Door Lock/Unlock Command",
+        "Door ECU -> Actuator Signal"
+      ],
+      "atm_technique_id": "ATM-T0070",
+      "atm_technique_name": "Modify Bus Message",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Moderate",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "CAN bus is vulnerable to injection; bypassing token validation enables unauthorized unlocking.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Door ECU shall enforce integrity and authorization of CAN Lock/Unlock Message against Modify Bus Message to prevent unauthorized unlocking of doors."
+      }
+    },
+    {
+      "component": "Start Authorization ECU",
+      "threat_category": "Spoofing",
+      "threat_description": "Attacker injects or replays start authorization tokens to enable engine start without valid authentication.",
+      "linked_assets": [
+        "Start Authorization Token",
+        "Engine Start Command",
+        "Powertrain Start Interface"
+      ],
+      "atm_technique_id": "ATM-T0071",
+      "atm_technique_name": "Unintended Vehicle Network Message",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Major",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Replaying tokens or injecting start commands enables vehicle theft; replay protection and freshness validation are essential.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Start Authorization ECU shall enforce freshness and authenticity of Start Authorization Token against Unintended Vehicle Network Message to prevent unauthorized starting of the engine."
+      }
+    },
+    {
+      "component": "CAN Bus",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker with access to the CAN bus eavesdrops messages, potentially learning token structure or operational metadata.",
+      "linked_assets": [
+        "CAN Lock/Unlock Message",
+        "Start Authorization Token",
+        "In-Vehicle CAN (broadcast medium)"
+      ],
+      "atm_technique_id": "ATM-T0038",
+      "atm_technique_name": "Network Sniffing",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE1",
+        "KoIC": "KoIC1",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Negligible",
+        "F": "Negligible",
+        "P": "Moderate"
+      },
+      "risk_value": 2,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "CAN messages are not confidential by default; tokens are assumed integrity-protected and short-lived, reducing risk."
+    },
+    {
+      "component": "HSM / Secure Enclave",
+      "threat_category": "Elevation of Privilege",
+      "threat_description": "Attacker exploits HSM firmware or hardware vulnerabilities to extract cryptographic keys or bypass key usage restrictions.",
+      "linked_assets": [
+        "Cryptographic Key Material",
+        "HSM Firmware / Secure Boot Measurements",
+        "Cryptographic Key Store"
+      ],
+      "atm_technique_id": "ATM-T0028",
+      "atm_technique_name": "Hardware Fault Injection",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "O": "Severe",
+        "F": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Extracting keys from HSMs is extremely difficult, requiring advanced hardware attacks; risk is accepted due to high cost/complexity."
+    },
+    {
+      "component": "Crypto Engine",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker modifies or exploits the crypto engine to produce valid tokens without proper verification.",
+      "linked_assets": [
+        "Start Authorization Token",
+        "Cryptographic Key Material",
+        "Crypto Engine"
+      ],
+      "atm_technique_id": "ATM-T0023",
+      "atm_technique_name": "Modify Isolated Execution Environment",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "O": "Severe",
+        "F": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Attack requires compromising secure enclave hardware or firmware; infeasible for most adversaries and mitigated by secure enclave design."
+    },
+    {
+      "component": "Cryptographic Key Store",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker accesses or exfiltrates cryptographic key material from persistent storage.",
+      "linked_assets": [
+        "Cryptographic Key Material",
+        "Cryptographic Key Store"
+      ],
+      "atm_technique_id": "ATM-T0056",
+      "atm_technique_name": "Access personal data",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "O": "Severe",
+        "F": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Key store is within HSM; extraction requires advanced hardware attacks, so risk is accepted."
+    },
+    {
+      "component": "Door Lock Actuator",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker physically accesses and manipulates the actuator to unlock the door, bypassing electronic controls.",
+      "linked_assets": [
+        "Door Lock/Unlock Command",
+        "Door ECU -> Actuator Signal"
+      ],
+      "atm_technique_id": "ATM-T0073",
+      "atm_technique_name": "Physical Access",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 2,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Physical access to actuators is a mechanical risk; electronic controls cannot fully mitigate."
+    },
+    {
+      "component": "Engine ECU / Inverter",
+      "threat_category": "Elevation of Privilege",
+      "threat_description": "Attacker exploits vulnerabilities in the powertrain ECU to enable propulsion without valid start authorization.",
+      "linked_assets": [
+        "Engine Start Command",
+        "Powertrain Start Interface"
+      ],
+      "atm_technique_id": "ATM-T0026",
+      "atm_technique_name": "Exploit OS Vulnerability",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE2",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET2"
+      },
+      "impact": {
+        "S": "Major",
+        "O": "Major",
+        "F": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Powertrain ECU compromise can bypass all upstream controls; software isolation and authorization checks required.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Engine ECU shall enforce verification of Powertrain Start Interface messages against Exploit OS Vulnerability to prevent unauthorized enabling of propulsion."
+      }
+    },
+    {
+      "component": "LF Receiver / LF Front-End",
+      "threat_category": "Spoofing",
+      "threat_description": "Attacker forges LF wake/proximity events to BCM, triggering challenge emission without valid proximity.",
+      "linked_assets": [
+        "LF Receiver -> BCM Event / Control Link",
+        "LF Proximity Signal"
+      ],
+      "atm_technique_id": "ATM-T0004",
+      "atm_technique_name": "Analog Sensor Attacks",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Negligible",
+        "O": "Major",
+        "F": "Moderate",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "False wake events can enable relay or nuisance attacks; input validation is feasible and effective.",
+      "cybersecurity_goal": {
+        "csg_statement": "The LF Receiver shall enforce authenticity and plausibility checks of LF Receiver -> BCM Event / Control Link against Analog Sensor Attacks to prevent unauthorized triggering of the keyless entry process."
+      }
+    },
+    {
+      "component": "HSM / Secure Enclave",
+      "threat_category": "Repudiation",
+      "threat_description": "Attacker attempts to bypass or forge HSM attestation/measurement data to hide firmware compromise.",
+      "linked_assets": [
+        "HSM Attestation / Measurement Data",
+        "HSM Firmware / Secure Boot Measurements"
+      ],
+      "atm_technique_id": "ATM-T0075",
+      "atm_technique_name": "Compromise Cryptographic Security",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "O": "Severe",
+        "F": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Bypassing attestation requires advanced attacks on secure enclave; risk is accepted."
+    }
+  ]
+}

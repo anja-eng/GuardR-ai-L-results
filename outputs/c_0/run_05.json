@@ -1,0 +1,459 @@
+{
+  "threats": [
+    {
+      "component": "Key Fob",
+      "threat_category": "Spoofing",
+      "threat_description": "Attacker forges key fob RF responses to the vehicle using a relay or replay device, impersonating a valid fob.",
+      "linked_assets": [
+        "I1",
+        "I2",
+        "C2",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0007",
+      "atm_technique_name": "Relay Communications",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Major",
+        "F": "Major",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Relay attacks are well-documented, high-impact, and feasible with commodity tools. Mitigations such as distance bounding or UWB are practical and effective.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Keyless Entry and Start System shall enforce distance bounding and/or cryptographically protected timing checks of RF Challenge-Response Messages against Relay Communications to prevent unauthorized unlocking and engine start."
+      }
+    },
+    {
+      "component": "Key Fob",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker eavesdrops on RF challenge-response exchanges to capture nonces and infer cryptographic material.",
+      "linked_assets": [
+        "I2",
+        "C2"
+      ],
+      "atm_technique_id": "ATM-T0038",
+      "atm_technique_name": "Network Sniffing",
+      "afr": {
+        "WoO": "WoO0",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Negligible",
+        "F": "Negligible",
+        "O": "Negligible",
+        "P": "Moderate"
+      },
+      "risk_value": 2,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Challenge-response protocol uses nonces and cryptographic protection, so passive eavesdropping yields little actionable data."
+    },
+    {
+      "component": "LF Antenna (Door Handle)",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker injects or amplifies LF proximity signals to falsely trigger wake-up and challenge emission.",
+      "linked_assets": [
+        "C1",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0004",
+      "atm_technique_name": "Analog Sensor Attacks",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Moderate",
+        "F": "Moderate",
+        "O": "Moderate",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "False LF triggers can drain battery and enable RF relay attacks. LF signal validation or location checks can mitigate risk.",
+      "cybersecurity_goal": {
+        "csg_statement": "The LF Antenna and LF Receiver shall enforce validation of LF Proximity Signal characteristics (e.g., signal strength, expected antenna port, timing) against Analog Sensor Attacks to prevent unauthorized wake-up and challenge emission."
+      }
+    },
+    {
+      "component": "Vehicle RF Antenna",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker physically tampers with or replaces the external RF antenna to inject or block RF communications.",
+      "linked_assets": [
+        "C2",
+        "C10",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0016",
+      "atm_technique_name": "Physical Modification",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq1",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Moderate",
+        "F": "Moderate",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Physical access is required and tampering is often visible; monitoring and tamper-evident design are best-effort."
+    },
+    {
+      "component": "RF Transceiver (Vehicle)",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker modifies RF transceiver firmware to forge, drop, or alter forwarded Auth Data to BCM.",
+      "linked_assets": [
+        "I7",
+        "I5",
+        "C6",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0022",
+      "atm_technique_name": "Modify OS Kernel, Boot Partition, or System Partition",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE2",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET2"
+      },
+      "impact": {
+        "S": "Major",
+        "F": "Major",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Firmware integrity mechanisms (secure boot, signed updates) are feasible and effective for this threat.",
+      "cybersecurity_goal": {
+        "csg_statement": "The RF Transceiver (Vehicle) shall enforce secure boot and signed firmware update verification of RF Transceiver Firmware against Modify OS Kernel, Boot Partition, or System Partition to prevent unauthorized modification of authentication data forwarding."
+      }
+    },
+    {
+      "component": "Body Control Module (BCM)",
+      "threat_category": "Elevation of Privilege",
+      "threat_description": "Attacker exploits BCM software vulnerabilities to bypass authentication logic and issue unlock/start commands.",
+      "linked_assets": [
+        "I3",
+        "I9",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0026",
+      "atm_technique_name": "Exploit OS Vulnerability",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE2",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET2"
+      },
+      "impact": {
+        "S": "Severe",
+        "F": "Major",
+        "O": "Severe",
+        "P": "Negligible"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "BCM is critical; software hardening and input validation are practical mitigations.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Body Control Module shall enforce input validation and memory protection of authentication logic and configuration data against Exploit OS Vulnerability to prevent unauthorized issuance of unlock and start commands."
+      }
+    },
+    {
+      "component": "Door ECU",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker injects CAN messages or reprograms the Door ECU to unlock doors without valid authorization token.",
+      "linked_assets": [
+        "F1",
+        "C3",
+        "I4"
+      ],
+      "atm_technique_id": "ATM-T0054",
+      "atm_technique_name": "Reprogram ECU for Lateral Movement",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE1",
+        "KoIC": "KoIC1",
+        "Eq": "Eq1",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Major",
+        "F": "Major",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Enforcing token validation and secure boot on Door ECU can reduce this risk.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Door ECU shall enforce verification of authorization tokens and secure boot of Door ECU firmware against Reprogram ECU for Lateral Movement to prevent unauthorized unlocking of doors."
+      }
+    },
+    {
+      "component": "Start Authorization ECU",
+      "threat_category": "Spoofing",
+      "threat_description": "Attacker replays or forges start authorization tokens to enable engine start.",
+      "linked_assets": [
+        "I4",
+        "F2",
+        "C5"
+      ],
+      "atm_technique_id": "ATM-T0067",
+      "atm_technique_name": "Abuse Standard Diagnostic Protocol for Affecting Vehicle Function",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET1"
+      },
+      "impact": {
+        "S": "Major",
+        "F": "Major",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 4,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Replay protection and token freshness validation are effective and feasible.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Start Authorization ECU shall enforce freshness and cryptographic verification of Start Authorization Tokens against Abuse Standard Diagnostic Protocol for Affecting Vehicle Function to prevent unauthorized engine start."
+      }
+    },
+    {
+      "component": "CAN Bus",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker with physical access eavesdrops on CAN traffic, extracting lock/unlock and start commands.",
+      "linked_assets": [
+        "C3",
+        "C5",
+        "C7",
+        "I4"
+      ],
+      "atm_technique_id": "ATM-T0038",
+      "atm_technique_name": "Network Sniffing",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Negligible",
+        "F": "Negligible",
+        "O": "Negligible",
+        "P": "Moderate"
+      },
+      "risk_value": 2,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "CAN bus is not inherently confidential; however, message-level tokens/MACs protect against active misuse. Passive eavesdropping yields limited value."
+    },
+    {
+      "component": "HSM / Secure Enclave",
+      "threat_category": "Elevation of Privilege",
+      "threat_description": "Attacker exploits HSM firmware vulnerability to extract cryptographic keys.",
+      "linked_assets": [
+        "I1",
+        "I8",
+        "I10",
+        "KEYSTORE_1"
+      ],
+      "atm_technique_id": "ATM-T0027",
+      "atm_technique_name": "Exploit Isolated Execution Environment Vulnerability",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "F": "Severe",
+        "O": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "HSM firmware should be subject to secure development, attestation, and update mechanisms.",
+      "cybersecurity_goal": {
+        "csg_statement": "The HSM / Secure Enclave shall enforce firmware integrity verification and attestation of HSM Firmware / Secure Boot Measurements against Exploit Isolated Execution Environment Vulnerability to prevent extraction of cryptographic key material."
+      }
+    },
+    {
+      "component": "Crypto Engine",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker attempts to inject unauthorized cryptographic operations or manipulate key usage inside HSM.",
+      "linked_assets": [
+        "I1",
+        "I4",
+        "KEYSTORE_1",
+        "C8"
+      ],
+      "atm_technique_id": "ATM-T0075",
+      "atm_technique_name": "Compromise Cryptographic Security",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "F": "Severe",
+        "O": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Internal HSM access controls and non-exportability protections are industry standard and effective.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Crypto Engine shall enforce strict access control and non-exportability of cryptographic keys against Compromise Cryptographic Security to prevent unauthorized cryptographic operations or key extraction."
+      }
+    },
+    {
+      "component": "Cryptographic Key Store",
+      "threat_category": "Information Disclosure",
+      "threat_description": "Attacker gains access to the persistent key store, extracting long-term secret keys.",
+      "linked_assets": [
+        "I1",
+        "KEYSTORE_1"
+      ],
+      "atm_technique_id": "ATM-T0039",
+      "atm_technique_name": "ECU Credential Dumping",
+      "afr": {
+        "WoO": "WoO3",
+        "SE": "SE3",
+        "KoIC": "KoIC3",
+        "Eq": "Eq2",
+        "ET": "ET3"
+      },
+      "impact": {
+        "S": "Severe",
+        "F": "Severe",
+        "O": "Severe",
+        "P": "Severe"
+      },
+      "risk_value": 5,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "Industry best practice is to enforce hardware-backed, non-exportable key storage within the HSM.",
+      "cybersecurity_goal": {
+        "csg_statement": "The Cryptographic Key Store shall enforce hardware-backed, non-exportable storage of cryptographic key material against ECU Credential Dumping to prevent extraction of long-term secret keys."
+      }
+    },
+    {
+      "component": "Door Lock Actuator",
+      "threat_category": "Denial of Service",
+      "threat_description": "Attacker physically jams or disables the door lock actuator, preventing locking/unlocking.",
+      "linked_assets": [
+        "F1",
+        "C6"
+      ],
+      "atm_technique_id": "ATM-T0002",
+      "atm_technique_name": "Jamming or Denial of Service",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Moderate",
+        "F": "Moderate",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Physical jamming is a non-cyber risk; cannot be fully prevented by cybersecurity controls."
+    },
+    {
+      "component": "Engine ECU / Inverter",
+      "threat_category": "Denial of Service",
+      "threat_description": "Attacker blocks or jams start enable signals, preventing engine start even with valid authentication.",
+      "linked_assets": [
+        "F2",
+        "C5"
+      ],
+      "atm_technique_id": "ATM-T0002",
+      "atm_technique_name": "Jamming or Denial of Service",
+      "afr": {
+        "WoO": "WoO2",
+        "SE": "SE1",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Moderate",
+        "F": "Moderate",
+        "O": "Major",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Retain",
+      "treatment_rationale": "Physical/DoS attacks on powertrain interface are outside cyber scope; monitoring/logging may help but cannot prevent."
+    },
+    {
+      "component": "LF Receiver / LF Front-End",
+      "threat_category": "Tampering",
+      "threat_description": "Attacker injects or manipulates LF wake events sent to BCM to induce false challenge emission.",
+      "linked_assets": [
+        "C12",
+        "F1",
+        "F2"
+      ],
+      "atm_technique_id": "ATM-T0004",
+      "atm_technique_name": "Analog Sensor Attacks",
+      "afr": {
+        "WoO": "WoO1",
+        "SE": "SE0",
+        "KoIC": "KoIC0",
+        "Eq": "Eq0",
+        "ET": "ET0"
+      },
+      "impact": {
+        "S": "Moderate",
+        "F": "Moderate",
+        "O": "Moderate",
+        "P": "Negligible"
+      },
+      "risk_value": 3,
+      "risk_treatment": "Reduce",
+      "treatment_rationale": "LF wake event validation at BCM is feasible and reduces risk of false triggers.",
+      "cybersecurity_goal": {
+        "csg_statement": "The LF Receiver and BCM shall enforce validation of LF wake event metadata (e.g., expected antenna port, timing, signal strength) against Analog Sensor Attacks to prevent unauthorized challenge emission."
+      }
+    }
+  ]
+}
