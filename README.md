@@ -2,7 +2,7 @@
 
 Reproducibility package for:
 
-> **GuardrAIl: A Neuro-Symbolic Framework for Automotive TARA Automation and ISO/SAE 21434 Compliance**
+> **GuardR(ai)L: A Neuro-Symbolic Framework for Automotive TARA Automation and ISO/SAE 21434 Compliance**
 > Simić, Pavković, Milošević.
 > *Information and Software Technology* (under review).
 
@@ -85,7 +85,7 @@ denominator.
 
 ```bibtex
 @article{simic2026guardrail,
-  title   = {GuardrAIl: A Neuro-Symbolic Framework for Automotive TARA Automation and ISO/SAE 21434 Compliance},
+  title   = {GuardR(ai)L: A Neuro-Symbolic Framework for Automotive TARA Automation and ISO/SAE 21434 Compliance},
   author  = {Simić, Anja and Pavković, Bogdan and Milošević, Jelena},
   journal = {Information and Software Technology},
   year    = {2026},
