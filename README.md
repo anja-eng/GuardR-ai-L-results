@@ -1,4 +1,4 @@
-# GuardrAIl — Companion Artifacts
+# GuardR(ai)L — Companion Artifacts
 
 Reproducibility package for:
 
